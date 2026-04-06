@@ -1,0 +1,40 @@
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2 class="auth-title">Create Account</h2>
+
+        <form [formGroup]="registrationForm" (ngSubmit)="register()">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="input" formControlName="name" placeholder="Your Full name">
+                <small class="error"
+                    *ngIf="registrationForm.get('name')?.touched && registrationForm.get('name')?.invalid">
+                    Full name is required
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="input" formControlName="email" placeholder="Enter email">
+                <small class="error"
+                    *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+                    Please enter a valid email address
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input class="input" type="password" formControlName="password" placeholder="Enter password">
+                <small class="error"
+                    *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+                    Password must be at least 6 characters
+                </small>
+            </div>
+
+
+            <button class="btn btn-primary auth-btn" [disabled]="registrationForm.invalid">Register</button>
+        </form>
+
+        <p class="auth-footer">Already have an account? <a routerLink="/login">Login</a></p>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+Auth   
+    Login
+    Register
+Home 
+Product
+Profile
+Cart
+Order
+Payment
+
+ADMIN
+    Product
+    Customer
+    Order
