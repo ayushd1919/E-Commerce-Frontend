@@ -1,0 +1,631 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); font-size: 13px; color: var(--color-text-primary); }
+
+.tabs { display: flex; gap: 3px; padding: 12px 14px 0; border-bottom: 1px solid var(--color-border-tertiary); flex-wrap: wrap; }
+.tab { padding: 6px 12px; border-radius: 6px 6px 0 0; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--color-text-secondary); border: 1px solid transparent; border-bottom: none; transition: all .15s; white-space: nowrap; }
+.tab:hover { color: var(--color-text-primary); background: var(--color-background-secondary); }
+.tab.active { color: var(--color-text-primary); background: var(--color-background-primary); border-color: var(--color-border-tertiary); margin-bottom: -1px; }
+
+.panel { display: none; padding: 14px; }
+.panel.active { display: block; }
+
+/* tree */
+.tree { font-family: var(--font-mono); font-size: 12px; line-height: 1.95; }
+.row { display: flex; align-items: center; padding: 0 4px; border-radius: 3px; }
+.row:hover { background: var(--color-background-secondary); }
+.dir  { color: var(--color-text-primary); font-weight: 500; }
+.file { color: var(--color-text-secondary); }
+.note { font-family: var(--font-sans); font-size: 10.5px; color: var(--color-text-tertiary); margin-left: 8px; font-style: italic; }
+.i1{padding-left:16px} .i2{padding-left:32px} .i3{padding-left:48px} .i4{padding-left:64px} .i5{padding-left:80px}
+
+.badge { font-family: var(--font-sans); font-size: 10px; font-weight: 500; border-radius: 3px; padding: 1px 5px; margin-left: 5px; white-space: nowrap; }
+.bg { background:var(--color-background-success); color:var(--color-text-success); }
+.bb { background:var(--color-background-info);    color:var(--color-text-info); }
+.by { background:var(--color-background-warning); color:var(--color-text-warning); }
+.br { background:var(--color-background-danger);  color:var(--color-text-danger); }
+.bs { background:var(--color-background-secondary); color:var(--color-text-secondary); border:1px solid var(--color-border-secondary); }
+
+/* cards */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+@media(max-width:580px){ .grid2,.grid3{grid-template-columns:1fr;} }
+
+.card { background:var(--color-background-secondary); border-radius:8px; padding:11px 13px; }
+.card h3 { font-size:12.5px; font-weight:500; margin-bottom:6px; }
+.card ul { list-style:none; padding:0; }
+.card li { font-size:11.5px; color:var(--color-text-secondary); line-height:1.75; padding-left:10px; position:relative; }
+.card li::before { content:"–"; position:absolute; left:0; color:var(--color-text-tertiary); }
+.card code { font-family:var(--font-mono); font-size:10.5px; background:var(--color-background-primary); padding:1px 4px; border-radius:3px; border:1px solid var(--color-border-tertiary); }
+
+.section-label { font-size:10.5px; font-weight:500; color:var(--color-text-tertiary); text-transform:uppercase; letter-spacing:.06em; padding:14px 0 5px; }
+
+.chip { font-family:var(--font-mono); font-size:10.5px; background:var(--color-background-secondary); border:1px solid var(--color-border-secondary); border-radius:4px; padding:1px 7px; color:var(--color-text-primary); }
+.flow { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:3px 0; font-size:11.5px; color:var(--color-text-secondary); }
+.arrow { color:var(--color-text-tertiary); font-size:10px; }
+
+.code-block { font-family:var(--font-mono); font-size:11px; background:var(--color-background-secondary); border-radius:6px; padding:10px 12px; line-height:1.7; color:var(--color-text-secondary); margin:8px 0; border:1px solid var(--color-border-tertiary); white-space:pre; overflow-x:auto; }
+.kw { color:var(--color-text-info); }
+.fn { color:var(--color-text-warning); }
+.cm { color:var(--color-text-tertiary); }
+.st { color:var(--color-text-success); }
+</style>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('structure')">Folder Structure</div>
+  <div class="tab" onclick="show('bootstrap')">Bootstrap</div>
+  <div class="tab" onclick="show('services')">Services</div>
+  <div class="tab" onclick="show('guards')">Guards</div>
+  <div class="tab" onclick="show('interceptors')">Interceptors</div>
+  <div class="tab" onclick="show('components')">Components</div>
+  <div class="tab" onclick="show('models')">Models</div>
+  <div class="tab" onclick="show('routing')">Routes</div>
+</div>
+
+<!-- FOLDER STRUCTURE -->
+<div id="panel-structure" class="panel active">
+<div class="tree">
+  <div class="row"><span class="dir">src/</span></div>
+  <div class="row i1"><span class="dir">app/</span></div>
+
+  <div class="row i2"><span class="dir">core/</span><span class="note">— app-wide singletons, never imported in components directly</span></div>
+  <div class="row i3"><span class="dir">guards/</span></div>
+  <div class="row i4"><span class="file">auth.guard.ts</span><span class="badge bg">CanActivateFn</span></div>
+  <div class="row i4"><span class="file">admin.guard.ts</span><span class="badge br">CanActivateFn</span></div>
+  <div class="row i4"><span class="file">guest.guard.ts</span><span class="badge bs">CanActivateFn</span></div>
+  <div class="row i4"><span class="file">admin-load.guard.ts</span><span class="badge br">CanMatchFn</span></div>
+  <div class="row i3"><span class="dir">interceptors/</span></div>
+  <div class="row i4"><span class="file">credentials.interceptor.ts</span><span class="badge by">HttpInterceptorFn</span></div>
+  <div class="row i4"><span class="file">error.interceptor.ts</span><span class="badge by">HttpInterceptorFn</span></div>
+  <div class="row i4"><span class="file">loading.interceptor.ts</span><span class="badge by">HttpInterceptorFn</span></div>
+  <div class="row i3"><span class="dir">services/</span></div>
+  <div class="row i4"><span class="file">auth.service.ts</span></div>
+  <div class="row i4"><span class="file">cart.service.ts</span></div>
+  <div class="row i4"><span class="file">product.service.ts</span></div>
+  <div class="row i4"><span class="file">order.service.ts</span></div>
+  <div class="row i4"><span class="file">user.service.ts</span></div>
+  <div class="row i4"><span class="file">taxonomy.service.ts</span></div>
+  <div class="row i4"><span class="file">loading.service.ts</span></div>
+  <div class="row i3"><span class="dir">models/</span></div>
+  <div class="row i4"><span class="file">user.model.ts</span></div>
+  <div class="row i4"><span class="file">product.model.ts</span></div>
+  <div class="row i4"><span class="file">order.model.ts</span></div>
+  <div class="row i4"><span class="file">cart.model.ts</span></div>
+  <div class="row i4"><span class="file">taxonomy.model.ts</span></div>
+  <div class="row i4"><span class="file">api-response.model.ts</span></div>
+
+  <div class="row i2" style="margin-top:6px"><span class="dir">shared/</span><span class="note">— standalone components imported where needed</span></div>
+  <div class="row i3"><span class="file">navbar/</span></div>
+  <div class="row i4"><span class="file">navbar.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">navbar.component.html</span></div>
+  <div class="row i4"><span class="file">navbar.component.css</span></div>
+  <div class="row i3"><span class="file">footer/</span></div>
+  <div class="row i4"><span class="file">footer.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">footer.component.html</span></div>
+  <div class="row i4"><span class="file">footer.component.css</span></div>
+  <div class="row i3"><span class="file">product-card/</span></div>
+  <div class="row i4"><span class="file">product-card.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">product-card.component.html</span></div>
+  <div class="row i4"><span class="file">product-card.component.css</span></div>
+  <div class="row i3"><span class="file">pagination/</span></div>
+  <div class="row i4"><span class="file">pagination.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">pagination.component.html</span></div>
+  <div class="row i3"><span class="file">filter-panel/</span></div>
+  <div class="row i4"><span class="file">filter-panel.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">filter-panel.component.html</span></div>
+  <div class="row i4"><span class="file">filter-panel.component.css</span></div>
+  <div class="row i3"><span class="file">image-fallback/</span></div>
+  <div class="row i4"><span class="file">image-fallback.directive.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i3"><span class="file">loading-spinner/</span></div>
+  <div class="row i4"><span class="file">loading-spinner.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">loading-spinner.component.html</span></div>
+  <div class="row i3"><span class="file">error-message/</span></div>
+  <div class="row i4"><span class="file">error-message.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">error-message.component.html</span></div>
+  <div class="row i3"><span class="file">pipes/</span></div>
+  <div class="row i4"><span class="file">currency-format.pipe.ts</span><span class="badge bs">standalone</span></div>
+
+  <div class="row i2" style="margin-top:6px"><span class="dir">features/</span></div>
+
+  <div class="row i3"><span class="dir">home/</span></div>
+  <div class="row i4"><span class="file">home.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">home.component.html</span></div>
+  <div class="row i4"><span class="file">home.component.css</span></div>
+
+  <div class="row i3"><span class="dir">auth/</span></div>
+  <div class="row i4"><span class="file">login/login.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">login/login.component.html</span></div>
+  <div class="row i4"><span class="file">login/login.component.css</span></div>
+  <div class="row i4"><span class="file">register/register.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">register/register.component.html</span></div>
+  <div class="row i4"><span class="file">register/register.component.css</span></div>
+  <div class="row i4"><span class="file">forgot-password/forgot-password.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">forgot-password/forgot-password.component.html</span></div>
+  <div class="row i4"><span class="file">auth.routes.ts</span></div>
+
+  <div class="row i3"><span class="dir">products/</span></div>
+  <div class="row i4"><span class="file">product-list/product-list.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">product-list/product-list.component.html</span></div>
+  <div class="row i4"><span class="file">product-list/product-list.component.css</span></div>
+  <div class="row i4"><span class="file">product-detail/product-detail.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">product-detail/product-detail.component.html</span></div>
+  <div class="row i4"><span class="file">product-detail/product-detail.component.css</span></div>
+  <div class="row i4"><span class="file">search-results/search-results.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">search-results/search-results.component.html</span></div>
+  <div class="row i4"><span class="file">search-results/search-results.component.css</span></div>
+  <div class="row i4"><span class="file">products.routes.ts</span></div>
+
+  <div class="row i3"><span class="dir">cart/</span></div>
+  <div class="row i4"><span class="file">cart.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">cart.component.html</span></div>
+  <div class="row i4"><span class="file">cart.component.css</span></div>
+
+  <div class="row i3"><span class="dir">checkout/</span></div>
+  <div class="row i4"><span class="file">checkout.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">checkout.component.html</span></div>
+  <div class="row i4"><span class="file">checkout.component.css</span></div>
+  <div class="row i4"><span class="file">order-confirmation/order-confirmation.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">order-confirmation/order-confirmation.component.html</span></div>
+  <div class="row i4"><span class="file">checkout.routes.ts</span></div>
+
+  <div class="row i3"><span class="dir">account/</span></div>
+  <div class="row i4"><span class="file">profile/profile.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">profile/profile.component.html</span></div>
+  <div class="row i4"><span class="file">profile/profile.component.css</span></div>
+  <div class="row i4"><span class="file">change-password/change-password.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">change-password/change-password.component.html</span></div>
+  <div class="row i4"><span class="file">order-history/order-history.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">order-history/order-history.component.html</span></div>
+  <div class="row i4"><span class="file">order-history/order-history.component.css</span></div>
+  <div class="row i4"><span class="file">order-detail/order-detail.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">order-detail/order-detail.component.html</span></div>
+  <div class="row i4"><span class="file">account.routes.ts</span></div>
+
+  <div class="row i3"><span class="dir">admin/</span><span class="note">— lazy loaded via canMatch</span></div>
+  <div class="row i4"><span class="file">layout/admin-layout.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">layout/admin-layout.component.html</span></div>
+  <div class="row i4"><span class="file">layout/admin-layout.component.css</span></div>
+  <div class="row i4"><span class="file">products/admin-product-list.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">products/admin-product-list.component.html</span></div>
+  <div class="row i4"><span class="file">products/admin-product-list.component.css</span></div>
+  <div class="row i4"><span class="file">products/admin-product-form.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">products/admin-product-form.component.html</span></div>
+  <div class="row i4"><span class="file">products/admin-product-form.component.css</span></div>
+  <div class="row i4"><span class="file">customers/admin-customer-list.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">customers/admin-customer-list.component.html</span></div>
+  <div class="row i4"><span class="file">customers/admin-customer-list.component.css</span></div>
+  <div class="row i4"><span class="file">orders/admin-order-list.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">orders/admin-order-list.component.html</span></div>
+  <div class="row i4"><span class="file">orders/admin-order-detail.component.ts</span><span class="badge bs">standalone</span></div>
+  <div class="row i4"><span class="file">orders/admin-order-detail.component.html</span></div>
+  <div class="row i4"><span class="file">admin.routes.ts</span></div>
+
+  <div class="row i2" style="margin-top:6px"><span class="file">app.component.ts</span><span class="badge bs">standalone root</span></div>
+  <div class="row i2"><span class="file">app.component.html</span></div>
+  <div class="row i2"><span class="file">app.component.css</span></div>
+  <div class="row i2"><span class="file">app.routes.ts</span></div>
+  <div class="row i2"><span class="file">app.config.ts</span><span class="note">— replaces AppModule entirely</span></div>
+
+  <div class="row i1" style="margin-top:8px"><span class="dir">assets/</span></div>
+  <div class="row i2"><span class="file">images/placeholder.png</span></div>
+  <div class="row i2"><span class="dir">styles/</span></div>
+  <div class="row i3"><span class="file">variables.css</span></div>
+  <div class="row i3"><span class="file">reset.css</span></div>
+  <div class="row i3"><span class="file">typography.css</span></div>
+
+  <div class="row i1" style="margin-top:8px"><span class="dir">environments/</span></div>
+  <div class="row i2"><span class="file">environment.ts</span></div>
+  <div class="row i2"><span class="file">environment.prod.ts</span></div>
+
+  <div class="row i1" style="margin-top:8px"><span class="file">index.html</span></div>
+  <div class="row i1"><span class="file">main.ts</span><span class="note">— bootstrapApplication(AppComponent, appConfig)</span></div>
+  <div class="row i1"><span class="file">styles.css</span><span class="note">— @import assets/styles/*</span></div>
+</div>
+</div>
+
+<!-- BOOTSTRAP -->
+<div id="panel-bootstrap" class="panel">
+  <div class="section-label">main.ts</div>
+  <div class="code-block"><span class="kw">import</span> { bootstrapApplication } <span class="kw">from</span> <span class="st">'@angular/platform-browser'</span>;
+<span class="kw">import</span> { AppComponent }         <span class="kw">from</span> <span class="st">'./app/app.component'</span>;
+<span class="kw">import</span> { appConfig }             <span class="kw">from</span> <span class="st">'./app/app.config'</span>;
+
+<span class="fn">bootstrapApplication</span>(AppComponent, appConfig)
+  .<span class="fn">catch</span>(err => console.error(err));</div>
+
+  <div class="section-label">app.config.ts — the heart of a standalone app (replaces AppModule)</div>
+  <div class="code-block"><span class="kw">import</span> { ApplicationConfig, provideZoneChangeDetection } <span class="kw">from</span> <span class="st">'@angular/core'</span>;
+<span class="kw">import</span> { provideRouter, withComponentInputBinding }    <span class="kw">from</span> <span class="st">'@angular/router'</span>;
+<span class="kw">import</span> { provideHttpClient, withInterceptors }         <span class="kw">from</span> <span class="st">'@angular/common/http'</span>;
+<span class="kw">import</span> { provideAnimations }                            <span class="kw">from</span> <span class="st">'@angular/platform-browser/animations'</span>;
+
+<span class="kw">import</span> { routes }                     <span class="kw">from</span> <span class="st">'./app.routes'</span>;
+<span class="kw">import</span> { credentialsInterceptor }     <span class="kw">from</span> <span class="st">'./core/interceptors/credentials.interceptor'</span>;
+<span class="kw">import</span> { errorInterceptor }           <span class="kw">from</span> <span class="st">'./core/interceptors/error.interceptor'</span>;
+<span class="kw">import</span> { loadingInterceptor }         <span class="kw">from</span> <span class="st">'./core/interceptors/loading.interceptor'</span>;
+
+<span class="kw">export const</span> appConfig: ApplicationConfig = {
+  providers: [
+    <span class="fn">provideZoneChangeDetection</span>({ eventCoalescing: <span class="kw">true</span> }),
+    <span class="fn">provideRouter</span>(routes, <span class="fn">withComponentInputBinding</span>()),
+    <span class="fn">provideHttpClient</span>(
+      <span class="fn">withInterceptors</span>([
+        credentialsInterceptor, <span class="cm">// always first — attaches cookie</span>
+        loadingInterceptor,
+        errorInterceptor,
+      ])
+    ),
+    <span class="fn">provideAnimations</span>(),
+  ]
+};</div>
+
+  <div class="section-label">app.component.ts — root shell (just a router outlet + navbar)</div>
+  <div class="code-block"><span class="kw">import</span> { Component }        <span class="kw">from</span> <span class="st">'@angular/core'</span>;
+<span class="kw">import</span> { RouterOutlet }     <span class="kw">from</span> <span class="st">'@angular/router'</span>;
+<span class="kw">import</span> { NavbarComponent }  <span class="kw">from</span> <span class="st">'./shared/navbar/navbar.component'</span>;
+<span class="kw">import</span> { FooterComponent }  <span class="kw">from</span> <span class="st">'./shared/footer/footer.component'</span>;
+<span class="kw">import</span> { LoadingSpinnerComponent } <span class="kw">from</span> <span class="st">'./shared/loading-spinner/loading-spinner.component'</span>;
+
+@<span class="fn">Component</span>({
+  selector: <span class="st">'app-root'</span>,
+  standalone: <span class="kw">true</span>,
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, LoadingSpinnerComponent],
+  templateUrl: <span class="st">'./app.component.html'</span>,
+  styleUrl:    <span class="st">'./app.component.css'</span>
+})
+<span class="kw">export class</span> <span class="fn">AppComponent</span> {}</div>
+</div>
+
+<!-- SERVICES -->
+<div id="panel-services" class="panel">
+  <div class="section-label">Pattern — all services use providedIn: 'root'</div>
+  <div class="code-block"><span class="cm">// every service follows this pattern — no module needed</span>
+@<span class="fn">Injectable</span>({ providedIn: <span class="st">'root'</span> })
+<span class="kw">export class</span> <span class="fn">AuthService</span> {
+  <span class="kw">private</span> currentUser$ = <span class="kw">new</span> <span class="fn">BehaviorSubject</span>&lt;User | <span class="kw">null</span>&gt;(<span class="kw">null</span>);
+  readonly user$ = <span class="kw">this</span>.currentUser$.asObservable();
+  <span class="fn">isLoggedIn</span>() { <span class="kw">return</span> !!<span class="kw">this</span>.currentUser$.getValue(); }
+  <span class="fn">getRole</span>()    { <span class="kw">return</span> <span class="kw">this</span>.currentUser$.getValue()?.role; }
+}</div>
+
+  <div class="grid2" style="margin-top:10px">
+    <div class="card">
+      <h3>auth.service.ts</h3>
+      <ul>
+        <li><code>login(email, password)</code></li>
+        <li><code>register(name, email, password)</code></li>
+        <li><code>logout()</code></li>
+        <li><code>forgotPassword(email)</code> → returns code (mock)</li>
+        <li><code>verifyCode(email, code)</code></li>
+        <li><code>resetPassword(email, code, newPass)</code></li>
+        <li><code>currentUser$</code> BehaviorSubject&lt;User|null&gt;</li>
+        <li><code>isLoggedIn()</code> / <code>getRole()</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>cart.service.ts</h3>
+      <ul>
+        <li><code>cart$</code> BehaviorSubject&lt;Cart&gt;</li>
+        <li><code>loadCart()</code> — called on login</li>
+        <li><code>addItem(productId, qty)</code></li>
+        <li><code>updateQty(productId, qty)</code></li>
+        <li><code>removeItem(productId)</code></li>
+        <li><code>clearCart()</code> — after order placed</li>
+        <li><code>getTotal()</code> — computed</li>
+        <li><code>itemCount$</code> — for navbar badge</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>product.service.ts</h3>
+      <ul>
+        <li><code>getAll(filters, page)</code></li>
+        <li><code>getById(id)</code></li>
+        <li><code>search(keyword, filters, page)</code></li>
+        <li><code>getByTaxonomy(type?, cat?, sub?)</code></li>
+        <li><code>create(formData: FormData)</code></li>
+        <li><code>update(id, formData: FormData)</code></li>
+        <li><code>delete(id)</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>order.service.ts</h3>
+      <ul>
+        <li><code>placeOrder(items, paymentMethod)</code></li>
+        <li><code>getMyOrders()</code></li>
+        <li><code>getMyOrderById(id)</code></li>
+        <li><code>adminGetAll()</code></li>
+        <li><code>adminGetById(id)</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>user.service.ts</h3>
+      <ul>
+        <li><code>updateProfile(name, email)</code></li>
+        <li><code>changePassword(current, newPass)</code></li>
+        <li><code>adminGetAllCustomers()</code></li>
+        <li><code>adminLockUser(id)</code></li>
+        <li><code>adminUnlockUser(id)</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>taxonomy.service.ts</h3>
+      <ul>
+        <li><code>getTypes()</code></li>
+        <li><code>getCategories(typeId)</code></li>
+        <li><code>getSubCategories(catId)</code></li>
+        <li>Used in filter-panel and admin-product-form for cascading dropdowns</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>loading.service.ts</h3>
+      <ul>
+        <li><code>isLoading$</code> BehaviorSubject&lt;boolean&gt;</li>
+        <li><code>show()</code> / <code>hide()</code></li>
+        <li>Driven by loading.interceptor — navbar spinner subscribes to <code>isLoading$</code></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- GUARDS -->
+<div id="panel-guards" class="panel">
+  <div class="section-label">Standalone apps use functional guards — no classes needed</div>
+  <div class="code-block"><span class="cm">// auth.guard.ts</span>
+<span class="kw">export const</span> <span class="fn">authGuard</span>: CanActivateFn = () => {
+  <span class="kw">const</span> auth   = <span class="fn">inject</span>(AuthService);
+  <span class="kw">const</span> router = <span class="fn">inject</span>(Router);
+  <span class="kw">return</span> auth.<span class="fn">isLoggedIn</span>()
+    ? <span class="kw">true</span>
+    : router.<span class="fn">createUrlTree</span>([<span class="st">'/auth/login'</span>]);
+};
+
+<span class="cm">// admin.guard.ts</span>
+<span class="kw">export const</span> <span class="fn">adminGuard</span>: CanActivateFn = () => {
+  <span class="kw">const</span> auth   = <span class="fn">inject</span>(AuthService);
+  <span class="kw">const</span> router = <span class="fn">inject</span>(Router);
+  <span class="kw">return</span> auth.<span class="fn">getRole</span>() === <span class="st">'admin'</span>
+    ? <span class="kw">true</span>
+    : router.<span class="fn">createUrlTree</span>([<span class="st">'/'</span>]);
+};
+
+<span class="cm">// guest.guard.ts — stops logged-in users hitting /auth/login</span>
+<span class="kw">export const</span> <span class="fn">guestGuard</span>: CanActivateFn = () => {
+  <span class="kw">const</span> auth   = <span class="fn">inject</span>(AuthService);
+  <span class="kw">const</span> router = <span class="fn">inject</span>(Router);
+  <span class="kw">return</span> auth.<span class="fn">isLoggedIn</span>()
+    ? router.<span class="fn">createUrlTree</span>([<span class="st">'/'</span>])
+    : <span class="kw">true</span>;
+};
+
+<span class="cm">// admin-load.guard.ts — CanMatchFn stops bundle download for non-admins</span>
+<span class="kw">export const</span> <span class="fn">adminLoadGuard</span>: CanMatchFn = () => {
+  <span class="kw">return</span> <span class="fn">inject</span>(AuthService).<span class="fn">getRole</span>() === <span class="st">'admin'</span>;
+};</div>
+
+  <div class="section-label">Which guard goes where</div>
+  <div class="flow"><span class="chip">/auth/login</span><span class="arrow">→</span><span class="badge bs">guestGuard</span></div>
+  <div class="flow"><span class="chip">/auth/register</span><span class="arrow">→</span><span class="badge bs">guestGuard</span></div>
+  <div class="flow"><span class="chip">/cart</span><span class="arrow">→</span><span class="badge bg">authGuard</span></div>
+  <div class="flow"><span class="chip">/checkout/**</span><span class="arrow">→</span><span class="badge bg">authGuard</span></div>
+  <div class="flow"><span class="chip">/account/**</span><span class="arrow">→</span><span class="badge bg">authGuard</span></div>
+  <div class="flow"><span class="chip">/admin/**</span><span class="arrow">→</span><span class="badge br">adminGuard</span><span class="arrow">+</span><span class="badge br">adminLoadGuard (canMatch)</span></div>
+</div>
+
+<!-- INTERCEPTORS -->
+<div id="panel-interceptors" class="panel">
+  <div class="section-label">Standalone apps use functional interceptors (HttpInterceptorFn)</div>
+  <div class="code-block"><span class="cm">// credentials.interceptor.ts — must be FIRST in the chain</span>
+<span class="kw">export const</span> <span class="fn">credentialsInterceptor</span>: HttpInterceptorFn =
+  (req, next) => <span class="fn">next</span>(req.<span class="fn">clone</span>({ withCredentials: <span class="kw">true</span> }));
+
+<span class="cm">// loading.interceptor.ts</span>
+<span class="kw">export const</span> <span class="fn">loadingInterceptor</span>: HttpInterceptorFn = (req, next) => {
+  <span class="kw">const</span> loading = <span class="fn">inject</span>(LoadingService);
+  loading.<span class="fn">show</span>();
+  <span class="kw">return</span> <span class="fn">next</span>(req).<span class="fn">pipe</span>(<span class="fn">finalize</span>(() => loading.<span class="fn">hide</span>()));
+};
+
+<span class="cm">// error.interceptor.ts</span>
+<span class="kw">export const</span> <span class="fn">errorInterceptor</span>: HttpInterceptorFn = (req, next) => {
+  <span class="kw">const</span> auth   = <span class="fn">inject</span>(AuthService);
+  <span class="kw">const</span> router = <span class="fn">inject</span>(Router);
+  <span class="kw">return</span> <span class="fn">next</span>(req).<span class="fn">pipe</span>(
+    <span class="fn">catchError</span>((err: HttpErrorResponse) => {
+      <span class="kw">if</span> (err.status === <span class="kw">401</span>) { auth.<span class="fn">clearSession</span>(); router.<span class="fn">navigate</span>([<span class="st">'/auth/login'</span>]); }
+      <span class="kw">if</span> (err.status === <span class="kw">403</span> && err.error?.reason === <span class="st">'locked'</span>) {
+        auth.<span class="fn">clearSession</span>(); router.<span class="fn">navigate</span>([<span class="st">'/auth/login'</span>], { queryParams: { reason: <span class="st">'locked'</span> }});
+      }
+      <span class="kw">return</span> <span class="fn">throwError</span>(() => err);
+    })
+  );
+};</div>
+</div>
+
+<!-- COMPONENTS -->
+<div id="panel-components" class="panel">
+  <div class="section-label">Every component has standalone: true and imports its own dependencies</div>
+  <div class="code-block"><span class="cm">// pattern for every standalone component</span>
+@<span class="fn">Component</span>({
+  selector: <span class="st">'app-product-list'</span>,
+  standalone: <span class="kw">true</span>,
+  imports: [
+    CommonModule,       <span class="cm">// or NgIf, NgFor individually</span>
+    RouterLink,
+    ProductCardComponent,
+    PaginationComponent,
+    FilterPanelComponent,
+    CurrencyFormatPipe,
+  ],
+  templateUrl: <span class="st">'./product-list.component.html'</span>,
+  styleUrl:    <span class="st">'./product-list.component.css'</span>
+})</div>
+
+  <div class="grid2" style="margin-top:10px">
+    <div class="card">
+      <h3>navbar.component <span class="badge bs">shared</span></h3>
+      <ul>
+        <li>imports: <code>RouterLink, AsyncPipe, NgIf</code></li>
+        <li>Injects: <code>AuthService, CartService</code></li>
+        <li>Shows guest / customer / admin nav items via <code>*ngIf</code></li>
+        <li>Cart badge subscribes to <code>cart.itemCount$</code></li>
+        <li>Search bar emits to router query param <code>?q=</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>product-card.component <span class="badge bs">shared</span></h3>
+      <ul>
+        <li>imports: <code>RouterLink, NgIf, ImageFallbackDirective</code></li>
+        <li><code>@Input() product: Product</code></li>
+        <li>Shows image with fallback directive on error</li>
+        <li>Price formatted with <code>CurrencyFormatPipe</code></li>
+        <li>No add-to-cart logic — handled on detail page</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>filter-panel.component <span class="badge bs">shared</span></h3>
+      <ul>
+        <li>imports: <code>ReactiveFormsModule, NgFor, AsyncPipe</code></li>
+        <li>Injects: <code>TaxonomyService</code></li>
+        <li>Cascading dropdowns: Type → Category → SubCat</li>
+        <li>Price min/max + in-stock toggle</li>
+        <li><code>@Output() filterChange</code> EventEmitter</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>image-fallback.directive <span class="badge bs">shared</span></h3>
+      <ul>
+        <li>Attribute directive on <code>&lt;img&gt;</code> tags</li>
+        <li>Listens to <code>(error)</code> event</li>
+        <li>Sets <code>src</code> to <code>assets/images/placeholder.png</code></li>
+        <li>Prevents broken image icons across the whole app</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>product-detail.component</h3>
+      <ul>
+        <li>imports: <code>NgIf, RouterLink, ImageFallbackDirective</code></li>
+        <li>Route input: <code>@Input() id: string</code> (via withComponentInputBinding)</li>
+        <li>Breadcrumb: Type → Category → SubCat → Product</li>
+        <li>Add to Cart button: shown only if <code>isLoggedIn()</code></li>
+        <li>Share button: <code>navigator.clipboard.writeText(location.href)</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>forgot-password.component</h3>
+      <ul>
+        <li>3-step stepper managed with local <code>step: 1|2|3</code> signal</li>
+        <li>Step 1: email → calls <code>forgotPassword()</code> → shows code on screen</li>
+        <li>Step 2: code entry → calls <code>verifyCode()</code></li>
+        <li>Step 3: new password form → calls <code>resetPassword()</code></li>
+        <li>Shows expiry error if code is stale</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>checkout.component</h3>
+      <ul>
+        <li>imports: <code>ReactiveFormsModule, NgFor, CurrencyFormatPipe</code></li>
+        <li>Injects: <code>CartService, OrderService, Router</code></li>
+        <li>Payment radio: Credit Card / Debit Card / COD / Bank Transfer</li>
+        <li>On confirm → <code>orderService.placeOrder()</code> → <code>cartService.clearCart()</code> → navigate to <code>/checkout/confirmation/:id</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>admin-product-form.component</h3>
+      <ul>
+        <li>Same component for create and edit — detect via route param <code>:id</code></li>
+        <li>imports: <code>ReactiveFormsModule, NgFor, NgIf</code></li>
+        <li>Cascading dropdowns via <code>TaxonomyService</code></li>
+        <li>File input → preview → send as <code>FormData</code></li>
+        <li>Patches form values from product when editing</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>admin-layout.component</h3>
+      <ul>
+        <li>imports: <code>RouterOutlet, RouterLink, RouterLinkActive</code></li>
+        <li>Sidebar with links: Products / Customers / Orders</li>
+        <li>Wraps all admin child routes via nested <code>&lt;router-outlet&gt;</code></li>
+        <li>No navbar shown inside admin — self-contained layout</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>admin-customer-list.component</h3>
+      <ul>
+        <li>imports: <code>NgFor, NgIf, AsyncPipe</code></li>
+        <li>Injects: <code>UserService</code></li>
+        <li>Lock/Unlock toggle per row</li>
+        <li>Optimistic UI update — reflects change immediately</li>
+        <li>Lock enforced server-side on customer's next request</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- MODELS -->
+<div id="panel-models" class="panel">
+  <div class="code-block"><span class="cm">// user.model.ts</span>
+<span class="kw">export interface</span> User {
+  id: <span class="kw">number</span>; name: <span class="kw">string</span>; email: <span class="kw">string</span>;
+  role: <span class="st">'customer'</span> | <span class="st">'admin'</span>; isLocked: <span class="kw">boolean</span>;
+}
+
+<span class="cm">// product.model.ts</span>
+<span class="kw">export interface</span> Product {
+  id: <span class="kw">number</span>; name: <span class="kw">string</span>; description: <span class="kw">string</span>;
+  price: <span class="kw">number</span>; stock: <span class="kw">number</span>; imagePath: <span class="kw">string</span> | <span class="kw">null</span>;
+  subCategory: SubCategory;
+}
+
+<span class="cm">// order.model.ts</span>
+<span class="kw">export type</span> PaymentMethod = <span class="st">'credit_card'</span> | <span class="st">'debit_card'</span> | <span class="st">'cod'</span> | <span class="st">'bank_transfer'</span>;
+<span class="kw">export interface</span> OrderItem  { productName: <span class="kw">string</span>; quantity: <span class="kw">number</span>; priceAtPurchase: <span class="kw">number</span>; }
+<span class="kw">export interface</span> Order      { id: <span class="kw">number</span>; placedAt: <span class="kw">string</span>; paymentMethod: PaymentMethod; totalAmount: <span class="kw">number</span>; items: OrderItem[]; }
+
+<span class="cm">// api-response.model.ts</span>
+<span class="kw">export interface</span> ApiResponse&lt;T&gt;   { data: T; message?: <span class="kw">string</span>; }
+<span class="kw">export interface</span> Paginated&lt;T&gt;     { data: T[]; page: <span class="kw">number</span>; totalPages: <span class="kw">number</span>; total: <span class="kw">number</span>; }
+
+<span class="cm">// taxonomy.model.ts</span>
+<span class="kw">export interface</span> ProductType  { id: <span class="kw">number</span>; name: <span class="kw">string</span>; }
+<span class="kw">export interface</span> Category     { id: <span class="kw">number</span>; name: <span class="kw">string</span>; typeId: <span class="kw">number</span>; }
+<span class="kw">export interface</span> SubCategory  { id: <span class="kw">number</span>; name: <span class="kw">string</span>; categoryId: <span class="kw">number</span>; }</div>
+</div>
+
+<!-- ROUTING -->
+<div id="panel-routing" class="panel">
+  <div class="code-block"><span class="cm">// app.routes.ts</span>
+<span class="kw">export const</span> routes: Routes = [
+  { path: <span class="st">''</span>,        component: HomeComponent },
+  { path: <span class="st">'auth'</span>,     <span class="fn">loadChildren</span>: () => <span class="kw">import</span>(<span class="st">'./features/auth/auth.routes'</span>).<span class="fn">then</span>(m => m.AUTH_ROUTES) },
+  { path: <span class="st">'products'</span>, <span class="fn">loadChildren</span>: () => <span class="kw">import</span>(<span class="st">'./features/products/products.routes'</span>).<span class="fn">then</span>(m => m.PRODUCT_ROUTES) },
+  { path: <span class="st">'cart'</span>,     component: CartComponent,     canActivate: [authGuard] },
+  { path: <span class="st">'checkout'</span>, <span class="fn">loadChildren</span>: () => <span class="kw">import</span>(<span class="st">'./features/checkout/checkout.routes'</span>).<span class="fn">then</span>(m => m.CHECKOUT_ROUTES), canActivate: [authGuard] },
+  { path: <span class="st">'account'</span>,  <span class="fn">loadChildren</span>: () => <span class="kw">import</span>(<span class="st">'./features/account/account.routes'</span>).<span class="fn">then</span>(m => m.ACCOUNT_ROUTES), canActivate: [authGuard] },
+  { path: <span class="st">'admin'</span>,    <span class="fn">loadChildren</span>: () => <span class="kw">import</span>(<span class="st">'./features/admin/admin.routes'</span>).<span class="fn">then</span>(m => m.ADMIN_ROUTES),   canMatch: [adminLoadGuard] },
+  { path: <span class="st">'**'</span>,       redirectTo: <span class="st">''</span> }
+];
+
+<span class="cm">// admin.routes.ts — nested layout with child routes</span>
+<span class="kw">export const</span> ADMIN_ROUTES: Routes = [{
+  path: <span class="st">''</span>, component: AdminLayoutComponent, canActivate: [adminGuard],
+  children: [
+    { path: <span class="st">''</span>,                  redirectTo: <span class="st">'products'</span>, pathMatch: <span class="st">'full'</span> },
+    { path: <span class="st">'products'</span>,          component: AdminProductListComponent },
+    { path: <span class="st">'products/new'</span>,      component: AdminProductFormComponent },
+    { path: <span class="st">'products/:id/edit'</span>, component: AdminProductFormComponent },
+    { path: <span class="st">'customers'</span>,         component: AdminCustomerListComponent },
+    { path: <span class="st">'orders'</span>,            component: AdminOrderListComponent },
+    { path: <span class="st">'orders/:id'</span>,        component: AdminOrderDetailComponent },
+  ]
+}];</div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
