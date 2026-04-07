@@ -5,3 +5,7 @@ export interface Type {
     name: string
     category: Category[]
 }
+export interface TypeRes {
+    message: string, 
+    type: Type
+}

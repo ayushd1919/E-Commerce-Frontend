@@ -9,3 +9,7 @@ export interface Address {
     pincode: string
     user: User
 }
+export interface AddressRes {
+    message: string,
+    address: Address
+}

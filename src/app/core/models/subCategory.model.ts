@@ -7,3 +7,7 @@ export interface SubCategory {
     category: Category[]
     product: Product[]
 }
+export interface SubCategoryRes {
+    message: string
+    subCategory: SubCategory
+}

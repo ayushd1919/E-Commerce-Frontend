@@ -28,3 +28,7 @@ export interface OrderItem {
     quantity: number
     priceAtPurchased: number
 }
+export interface orderRes {
+    message: string,
+    order: Order[]
+}

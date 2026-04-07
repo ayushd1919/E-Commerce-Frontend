@@ -23,3 +23,12 @@ export interface authRes {
     message: string
     user: User
 }
+
+export interface SessionRes {
+    jti: string;
+    userId: number;
+    name: string;
+    createdAt: Date;
+    userAgent: string;
+    ip: string;
+}

@@ -7,3 +7,7 @@ export interface Category {
     type: Type
     subCategory: SubCategory[]
 }
+export interface CategoryRes {
+    message: string
+    category: Category
+}

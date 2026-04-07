@@ -21,3 +21,7 @@ export interface ProductImage {
     path: string
     product: Product
 }
+export interface productRes {
+    message: string,
+    product: Product
+}

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { authRes, User } from '../core/models/user.model';
+import { authRes, SessionRes, User } from '../models/user.model';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,51 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/api/auth'
 
+  userSubject = new BehaviorSubject<User | null>(null)
+
+  user$ = this.userSubject.asObservable()
+
   constructor(private http: HttpClient) { }
 
   register(user: Partial<User>) {
     return this.http.post<authRes>(this.apiUrl + "/register", user)
   }
   login(user: Partial<User>) {
-    return this.http.post<authRes>(this.apiUrl + "/login", user)
+    return this.http.post<authRes>(this.apiUrl + "/login", user).pipe(
+      tap((res) => {
+        this.userSubject.next(res.user)
+        console.log(res.user)
+        console.log(this.userSubject.value)
+      })
+    )
+  }
+  logout() {
+    return this.http.post<{ message: string }>(this.apiUrl + "/logout", {}).pipe(
+      tap((res) => this.userSubject.next(null))
+    )
+  }
+  isLoggedIn = false
+  loggedIn() {
+    this.http.get<{ loggedIn: boolean }>(this.apiUrl + '/status').pipe(
+      tap((res) => {
+        if (res.loggedIn === true)
+          this.isLoggedIn = true
+        this.isLoggedIn = false
+      })
+    )
+    console.log(this.isLoggedIn)
+    return this.isLoggedIn
+  }
+  getRole() {
+    return this.userSubject.value?.role
+  }
+  logoutById(sessionId: number) {
+    return this.http.post<{message: string}>(this.apiUrl + `/logout/${sessionId}`,{})
+  }
+  logoutAll() {
+    return this.http.post<{message: string}>(this.apiUrl + '/logoutAll',{})
+  }
+  getSessions() {
+    return this.http.get<SessionRes>(this.apiUrl + '/sessions')
   }
 }
