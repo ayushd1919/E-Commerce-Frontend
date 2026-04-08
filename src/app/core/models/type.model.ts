@@ -7,5 +7,5 @@ export interface Type {
 }
 export interface TypeRes {
     message: string, 
-    type: Type
+    type: Type[]
 }

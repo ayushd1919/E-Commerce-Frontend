@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { authRes, SessionRes, User } from '../models/user.model';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { OTPRes } from '../models/otp.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/api/auth'
 
-  userSubject = new BehaviorSubject<User | null>(null)
+  private userSubject = new BehaviorSubject<User | null>(null)
 
   user$ = this.userSubject.asObservable()
 

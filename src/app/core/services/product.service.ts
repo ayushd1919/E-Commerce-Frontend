@@ -14,7 +14,7 @@ export class ProductService {
   getProductById(id: number) {
     return this.http.get<productRes>(this.apiUrl + `/${id}`)
   }
-  getProducts(type: string) {
+  getProducts(typeId?: string, categoryId?: string, subCategoryId?: string) {
     return this.http.get<productRes>(this.apiUrl + '/filter')
   }  
 }

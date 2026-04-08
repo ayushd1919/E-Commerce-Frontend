@@ -21,7 +21,14 @@ export interface ProductImage {
     path: string
     product: Product
 }
+export interface Pagination {
+    total: number,
+    page: number,
+    limit: number,
+    totalPages: number
+}
 export interface productRes {
     message: string,
-    product: Product
+    product: Product,
+    pagination: Pagination
 }

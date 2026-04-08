@@ -9,7 +9,8 @@ export interface Cart {
 }
 export interface CartRes {
     message: string,
-    cart: Cart
+    itemsWithTotals: CartItem[],
+    grandTotal: number
 }
 export interface CartItem {
     id: number

@@ -1,1 +1,5 @@
-<p>{{cart.message}}</p>
+<div *ngIf="(cartItems$ | async) as cartItems">
+    <div *ngFor="let cartItem of cartItems">
+        <p>{{cartItem.product.name}}: {{cartItem.quantity}}</p>
+    </div>
+</div>

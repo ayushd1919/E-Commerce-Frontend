@@ -9,5 +9,5 @@ export interface SubCategory {
 }
 export interface SubCategoryRes {
     message: string
-    subCategory: SubCategory
+    subCategory: SubCategory[]
 }

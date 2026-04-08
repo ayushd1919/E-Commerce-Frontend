@@ -30,5 +30,5 @@ export interface OrderItem {
 }
 export interface orderRes {
     message: string,
-    order: Order[]
+    orders: Order[]
 }

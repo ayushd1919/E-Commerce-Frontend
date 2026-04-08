@@ -1,1 +1,14 @@
-<p>filter-panel works!</p>
+<select [formControl]="typeControl">
+    <option value="" disabled>Select Type</option>
+    <option *ngFor="let type of type$ | async" [value]="type.id">{{type.name}}</option>
+</select>
+
+<select *ngIf="category$" [formControl]="categoryControl">
+    <option value="" disabled>Select Category</option>
+    <option *ngFor="let category of category$ | async" [value]="category.id">{{category.name}}</option>
+</select>
+
+<select *ngIf="subCategory$" [formControl]="subCategoryControl">
+    <option value="" disabled>Select SubCategory</option>
+    <option *ngFor="let subCategory of subCategory$ | async" [value]="subCategory.id">{{subCategory.name}}</option>
+</select>

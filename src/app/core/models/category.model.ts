@@ -9,5 +9,5 @@ export interface Category {
 }
 export interface CategoryRes {
     message: string
-    category: Category
+    category: Category[]
 }

@@ -21,7 +21,7 @@ export class OrderService {
     return this.http.delete<orderRes>(this.apiUrl + `/cancel/${id}`)
   }
   getOrders() {
-    return this.http.get<orderRes>(this.apiUrl + 'all')
+    return this.http.get<orderRes>(this.apiUrl + '/all')
   }
   getOrdersById(id: number) {
     return this.http.get<orderRes>(this.apiUrl + `/${id}`)

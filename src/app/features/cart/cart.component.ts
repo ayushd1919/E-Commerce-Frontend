@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../core/services/cart.service';
-import { CartRes } from '../../core/models/cart.model';
+import { map, Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Product } from '../../core/models/product.model';
+import { CartItem } from '../../core/models/cart.model';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService) { }
-  cart!: CartRes
-  
+  cartItems$!: Observable<CartItem[]>
+  grandTotal!: Observable<number>
+
   ngOnInit(): void {
-    this.cartService.getCart().subscribe({
-      next:(res) => this.cart = res
-    })
+    this.cartItems$ = this.cartService.getCart().pipe(
+      map((res) => res.itemsWithTotals)
+    )
   }
 }

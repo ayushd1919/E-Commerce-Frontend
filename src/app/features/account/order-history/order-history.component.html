@@ -1,1 +1,6 @@
-<p>order-history works!</p>
+<div *ngIf="(order$ | async) as orders">
+    <div *ngFor="let order of orders">
+        <p>Order ID: {{order.id}}</p>
+        <p>Amount: {{order.totalAmount}}</p>
+    </div>
+</div>
