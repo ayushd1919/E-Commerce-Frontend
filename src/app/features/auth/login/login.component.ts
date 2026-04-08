@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
   selector: 'app-login',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css', '../auth.styles.css']
 })
 export class LoginComponent {
 
@@ -18,7 +18,7 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
 

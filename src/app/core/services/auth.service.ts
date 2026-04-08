@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { authRes, SessionRes, User } from '../models/user.model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,17 +33,10 @@ export class AuthService {
       tap((res) => this.userSubject.next(null))
     )
   }
-  isLoggedIn = false
-  loggedIn() {
-    this.http.get<{ loggedIn: boolean }>(this.apiUrl + '/status').pipe(
-      tap((res) => {
-        if (res.loggedIn === true)
-          this.isLoggedIn = true
-        this.isLoggedIn = false
-      })
+  loggedIn(): Observable<boolean> {
+    return this.http.get<{ loggedIn: boolean }>(this.apiUrl + '/status').pipe(
+      map(res => res.loggedIn)
     )
-    console.log(this.isLoggedIn)
-    return this.isLoggedIn
   }
   getRole() {
     return this.userSubject.value?.role

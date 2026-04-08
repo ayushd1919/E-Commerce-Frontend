@@ -1,0 +1,10 @@
+.forgot-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.forgot-row .link {
+  font-size: var(--font-xs);
+  font-weight: 500;
+}

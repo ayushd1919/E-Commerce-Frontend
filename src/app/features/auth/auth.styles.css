@@ -1,0 +1,121 @@
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+  background: var(--color-bg-page);
+}
+
+.auth-card {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-md);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-header .heading {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+
+.auth-header .subheading {
+  font-size: var(--font-sm);
+  color: var(--color-text-muted);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.label {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: var(--font-body);
+  font-family: 'Inter', sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:focus {
+  border-color: var(--color-border-focus);
+}
+
+.input.ng-invalid.ng-touched {
+  border-color: var(--color-danger);
+}
+
+.input-icon {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.pw-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  transition: color 0.2s;
+}
+
+.pw-toggle:hover {
+  color: var(--color-primary);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: var(--font-sm);
+}
+
+.link {
+  color: var(--color-text-link);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

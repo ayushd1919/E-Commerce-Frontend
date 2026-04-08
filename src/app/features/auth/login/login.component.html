@@ -1,9 +1,45 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-    <input type="text" formControlName="email" placeholder="Email">
-    <!-- <small class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-        Please enter a valid email address
-    </small> -->
-    <input type="text" formControlName="password" placeholder="Password">
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-</form>
-<button (click)="logout()">Logout</button>
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <h2 class="heading">Welcome Back</h2>
+      <p class="subheading">Sign in to your ShopHub account</p>
+    </div>
+
+    <form (ngSubmit)="login()">
+
+      <div class="input-group">
+        <label class="label">Email</label>
+        <div class="input-wrap">
+          <input class="input" type="email" placeholder="you@example.com"
+            formControlName="email" style="padding-right: 38px">
+          <span class="input-icon">
+            <!-- email svg -->
+          </span>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="label">Password</label>
+        <div class="input-wrap">
+          <input class="input" type="password" placeholder="Enter your password"
+            formControlName="password" style="padding-right: 38px">
+          <!-- <button class="pw-toggle" type="button" (click)="togglePw()"> -->
+            <!-- eye svg -->
+          <!-- </button> -->
+        </div>
+        <div class="forgot-row">
+          <a class="link" routerLink="/forgot-password">Forgot password?</a>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full" type="submit">Sign In</button>
+
+    </form>
+
+    <p class="auth-footer text-muted">
+      Don't have an account? <a class="link" routerLink="/register">Create one</a>
+    </p>
+
+  </div>
+</div>
