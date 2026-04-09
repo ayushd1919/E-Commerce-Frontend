@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { User } from '../../core/models/user.model';
 import { AuthService } from '../../core/services/auth.service';
@@ -14,21 +14,21 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
 
   currentUser$!: Observable<User | null>
   type$!: Observable<Type[]>
   searchQuery: string = ''
-  userName!: string | null
-  user!: User | null
   
   constructor(private authService: AuthService,
     private taxanomyService: TaxanomyService
   ){
     this.currentUser$ = authService.user$
     this.type$ = this.taxanomyService.getType().pipe(map(res => res.type))
-    this.userName = localStorage.getItem('userName')
-    this.user = this.authService.userSubject.value
+    
+  }
+  ngOnInit(): void {
+    
   }
 
   onSearch(){}

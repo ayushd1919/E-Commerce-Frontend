@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { authRes, SessionRes, User } from '../models/user.model';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
-import { OTPRes } from '../models/otp.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,12 @@ export class AuthService {
 
   user$ = this.userSubject.asObservable()
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const user = localStorage.getItem('user')
+
+    if(user)
+      this.userSubject.next(JSON.parse(user))
+   }
 
   register(user: Partial<User>) {
     return this.http.post<authRes>(this.apiUrl + "/register", user)
@@ -24,8 +28,7 @@ export class AuthService {
     return this.http.post<authRes>(this.apiUrl + "/login", user).pipe(
       tap((res) => {
         this.userSubject.next(res.user)
-        console.log(res.user)
-        console.log(this.userSubject.value)
+        localStorage.setItem('user', JSON.stringify(res.user))
       })
     )
   }

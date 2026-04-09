@@ -24,11 +24,19 @@ export interface Order {
 export interface OrderItem {
     id: number
     order: Order
-    product: Product[]
+    product: Product
     quantity: number
     priceAtPurchased: number
 }
 export interface orderRes {
     message: string,
+    order: Order
+}
+export interface ordersRes {
+    message: string,
     orders: Order[]
+}
+export interface orderForm{
+    name: string
+    mobile: number
 }

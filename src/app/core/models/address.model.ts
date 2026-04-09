@@ -11,5 +11,5 @@ export interface Address {
 }
 export interface AddressRes {
     message: string,
-    address: Address
+    addresses: Address[]
 }

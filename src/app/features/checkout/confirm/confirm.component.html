@@ -1,53 +1,66 @@
-<!-- <div class="page">
+<div class="page">
   <div class="stepper">
     <div class="step done">
       <div class="step-num">
         <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#fff" stroke-width="3">
-          <polyline points="20 6 9 17 4 12"/>
+          <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
       Checkout
     </div>
     <div class="step-line"></div>
-    <div class="step active"><div class="step-num">2</div>Confirm & Pay</div>
+    <div class="step active">
+      <div class="step-num">2</div>Confirm & Pay
+    </div>
     <div class="step-line"></div>
-    <div class="step"><div class="step-num">3</div>Done</div>
+    <div class="step">
+      <div class="step-num">3</div>Done
+    </div>
   </div>
 
   <div class="checkout-layout">
-    <div> -->
+    <div>
 
       <!-- Address selection -->
-      <!-- <div class="section-card">
+      <div class="section-card">
         <div class="sc-title">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#c0392b" stroke-width="2">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
           </svg>
           Select Delivery Address
         </div>
 
-        <div
-          class="addr-option"
-          *ngFor="let addr of addresses"
-          [class.selected]="selectedAddressId === addr.id"
-          (click)="selectedAddressId = addr.id">
-          <div class="addr-radio">
-            <div class="addr-radio-dot" *ngIf="selectedAddressId === addr.id"></div>
+        <div *ngIf="(addresses$ | async) as addressList; else loading">
+
+          <div *ngIf="addressList.length === 0" class="no-data">
+            No addresses found.
           </div>
-          <div>
-            <span class="addr-tag">{{ addr.label }}</span>
-            <div class="addr-name">{{ addr.name }} · {{ addr.phone }}</div>
+
+          <div class="addr-option" *ngFor="let addr of addressList"
+          [class.selected] = "selectedAddressId === addr.id" 
+          (click)="selectedAddressId = addr.id"
+          >
+            <div class="addr-name">{{ addr.name | uppercase}}</div>
             <div class="addr-line">
-              {{ addr.addressLine1 }}, {{ addr.addressLine2 }},
-              {{ addr.city }} — {{ addr.pincode }}
+              {{ addr.addressLine1 | titlecase}}, {{ addr.city | titlecase}}
             </div>
           </div>
+          <button class="btn btn-secondary btn-sm" routerLink="/account">
+            Create New Address
+          </button>
+          <button class="btn btn-secondary btn-sm" routerLink="/account">
+            Update Current Address
+          </button>
         </div>
-      </div> -->
+
+        <ng-template #loading>
+          <div class="loader">Loading addresses...</div>
+        </ng-template>
+      </div>
 
       <!-- Payment method -->
-      <!-- <div class="section-card">
+      <div class="section-card">
         <div class="sc-title">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#c0392b" stroke-width="2">
             <rect x="1" y="4" width="22" height="16" rx="2"/>
@@ -58,7 +71,7 @@
         <div class="pm-grid">
           <div
             class="pm-option"
-            *ngFor="let method of paymentMethods"
+            *ngFor="let method of PaymentMethod"
             [class.selected]="selectedPayment === method.value"
             (click)="selectedPayment = method.value">
             <div class="pm-radio">
@@ -66,20 +79,18 @@
             </div>
             <div>
               <div class="pm-label">{{ method.label }}</div>
-              <div class="pm-sub">{{ method.sub }}</div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div> -->
-
-    <!-- Summary -->
-    <!-- <div class="summary-card">
+      <!-- Summary -->
+      <div class="summary-card">
       <div class="sum-title">Order Summary</div>
-      <div class="sum-item" *ngFor="let item of cartItems">
+      <div class="sum-item" *ngFor="let item of orderItems$ | async">
         <div class="sum-item-img">
-          <img [src]="item.product.imagePath" [alt]="item.product.name" appImageFallback>
+          <img [src]="item.product.displayPhoto" [alt]="item.product.name" appImageFallback>
         </div>
         <div style="flex: 1">
           <div class="sum-item-name">{{ item.product.name }}</div>
@@ -88,16 +99,16 @@
         <div class="sum-item-price">₹{{ item.product.price * item.quantity | number }}</div>
       </div>
       <hr class="sum-divider">
-      <div class="sum-row"><span>Subtotal</span><span>₹{{ totalMrp | number }}</span></div>
-      <div class="sum-row saving"><span>Discount</span><span>− ₹{{ totalSaving | number }}</span></div>
+      <div class="sum-row"><span>Subtotal</span><span>₹{{ grandTotal$ | async | number }}</span></div>
+      <!-- <div class="sum-row saving"><span>Discount</span><span>− ₹{{ totalSaving | number }}</span></div> -->
       <div class="sum-row"><span>Delivery</span><span class="free">FREE</span></div>
       <hr class="sum-divider">
-      <div class="sum-row total"><span>Total</span><span>₹{{ totalPrice | number }}</span></div>
+      <div class="sum-row total"><span>Total</span><span>₹{{ grandTotal$ | async | number }}</span></div>
       <button
         class="next-btn"
         (click)="placeOrder()"
-        [disabled]="!selectedAddressId || !selectedPayment || isPlacing">
-        {{ isPlacing ? 'Placing...' : 'Place Order · ₹' + (totalPrice | number) }}
+        [disabled]="!selectedAddressId || !selectedPayment">
+        {{ 'Place Order · ₹' + (grandTotal$ | async | number) }}
       </button>
       <div class="secure-note">
         <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#aaa" stroke-width="2">
@@ -108,4 +119,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

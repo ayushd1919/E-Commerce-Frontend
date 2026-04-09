@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { ProductListComponent } from "../product/product-list/product-list.component";
 import { HeroSliderComponent } from "../../shared/hero-slider/hero-slider.component";
 import { DealSliderComponent } from "../../shared/deal-slider/deal-slider.component";
 import { ProductCardComponent } from "../../shared/product-card/product-card.component";
 import { map, Observable } from 'rxjs';
 import { Product } from '../../core/models/product.model';
 import { ProductService } from '../../core/services/product.service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroSliderComponent, DealSliderComponent, ProductCardComponent, CommonModule, ProductListComponent],
+  imports: [HeroSliderComponent, DealSliderComponent, ProductCardComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

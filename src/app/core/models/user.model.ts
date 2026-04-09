@@ -13,6 +13,7 @@ export interface User {
     email: string
     role: UserRole
     address?: Address
+    mobile?: string
     profilePhoto?: string
     isLocked: boolean
     createdAt: Date
@@ -22,6 +23,11 @@ export interface User {
 export interface authRes {
     message: string
     user: User
+}
+
+export interface profileRes {
+    message: string,
+    profile: User
 }
 
 export interface SessionRes {

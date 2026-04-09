@@ -11,7 +11,8 @@ import { adminGuard } from './core/guards/admin.guard';
 import { adminLoadGuard } from './core/guards/admin-load.guard';
 
 export const routes: Routes = [
-    { path: 'home', pathMatch: 'full', component: HomeComponent },
+    {path: '', pathMatch: 'full', redirectTo: 'home'},
+    { path: 'home', component: HomeComponent },
     { path: 'auth', children: AUTH_ROUTES},
     { path: 'account', children: ACCOUNT_ROUTES, canActivate: [authGuard] },
     { path: 'cart', component: CartComponent, canActivate: [authGuard] },
