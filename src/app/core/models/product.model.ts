@@ -29,6 +29,6 @@ export interface Pagination {
 }
 export interface productRes {
     message: string,
-    product: Product,
+    products: Product[],
     pagination: Pagination
 }

@@ -1,2 +1,14 @@
-<app-filter-panel></app-filter-panel>
-<app-product-list></app-product-list>
+<app-hero-slider></app-hero-slider>
+<app-deal-slider></app-deal-slider>
+<section class="section">
+  <div class="section-head">
+    <h2 class="section-title">Featured Products</h2>
+    <a class="section-link" routerLink="/browse">View all →</a>
+  </div>
+  <div class="product-grid">
+    <app-product-card
+      *ngFor="let product of product$ | async"
+      [product]="product"
+    ></app-product-card>
+  </div>
+</section>

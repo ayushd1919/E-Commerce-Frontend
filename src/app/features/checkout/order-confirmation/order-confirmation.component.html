@@ -1,1 +1,33 @@
-<p>order-confirmation works!</p>
+<!-- <div class="confirm-wrap">
+
+  <div class="confirm-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#2e7d32" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+
+  <h1 class="confirm-title">Order Placed!</h1>
+  <p class="confirm-sub">
+    Order <strong>#ORD-{{ order?.id }}</strong> confirmed.<br>
+    Estimated delivery in 3–5 business days.
+  </p>
+
+  <div class="confirm-card" *ngIf="order">
+    <div class="confirm-row"><span>Order ID</span><span>#ORD-{{ order.id }}</span></div>
+    <div class="confirm-row"><span>Date</span><span>{{ order.createdAt | date:'mediumDate' }}</span></div>
+    <div class="confirm-row"><span>Payment</span><span>{{ order.paymentMethod | titlecase }}</span></div>
+    <div class="confirm-row"><span>Delivering To</span><span>{{ order.shippingName }}, {{ order.shippingAddress }}</span></div>
+    <div class="confirm-row"><span>Items</span><span>{{ order.items?.length }} items</span></div>
+    <div class="confirm-row total-row"><span>Total Paid</span><span>₹{{ order.totalAmount | number }}</span></div>
+    <div class="confirm-row">
+      <span>Status</span>
+      <span class="status-badge confirmed">{{ order.status }}</span>
+    </div>
+  </div>
+
+  <div class="confirm-actions">
+    <button class="btn-outline" routerLink="/orders">My Orders</button>
+    <button class="btn-fill" routerLink="/">Continue Shopping</button>
+  </div>
+
+</div> -->

@@ -1,0 +1,126 @@
+.pcard {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.pcard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.pcard-img {
+  width: 100%;
+  height: 160px;
+  background: #f9f9f9;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pcard-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pcard-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.pcard-body {
+  padding: 12px 14px 8px;
+}
+
+.pcard-cat {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pcard-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pcard-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pcard-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.pcard-mrp {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.pcard-discount {
+  font-size: 11px;
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.pcard-footer {
+  padding: 8px 14px 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.pcard-btn {
+  flex: 1;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-primary);
+  cursor: pointer;
+  background: #fff;
+  color: var(--color-primary);
+  transition: background 0.2s;
+}
+
+.pcard-btn:hover {
+  background: var(--color-primary-tint);
+}
+
+.pcard-btn.fill {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.pcard-btn.fill:hover {
+  background: var(--color-primary-hover);
+}

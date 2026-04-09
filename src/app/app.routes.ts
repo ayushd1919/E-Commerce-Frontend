@@ -11,11 +11,11 @@ import { adminGuard } from './core/guards/admin.guard';
 import { adminLoadGuard } from './core/guards/admin-load.guard';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', component: HomeComponent },
+    { path: 'home', pathMatch: 'full', component: HomeComponent },
     { path: 'auth', children: AUTH_ROUTES},
     { path: 'account', children: ACCOUNT_ROUTES, canActivate: [authGuard] },
     { path: 'cart', component: CartComponent, canActivate: [authGuard] },
     { path: 'checkout', children: CHECKOUT_ROUTES, canActivate: [authGuard] },
     { path: 'product', children: PRODUCT_ROUTES, canActivate: [authGuard] },
-    { path: 'admin', loadChildren: () => import('./Admin/admin.routes').then(m => m.ADMIN_ROUTES), canActivate: [adminGuard], canMatch: [adminLoadGuard] }
+    { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES), canActivate: [adminGuard], canMatch: [adminLoadGuard] }
 ];

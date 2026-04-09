@@ -11,7 +11,7 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/api/auth'
 
-  private userSubject = new BehaviorSubject<User | null>(null)
+  userSubject = new BehaviorSubject<User | null>(null)
 
   user$ = this.userSubject.asObservable()
 

@@ -1,1 +1,90 @@
-<p>checkout works!</p>
+<!-- <div class="page">
+  <div class="stepper">
+    <div class="step active"><div class="step-num">1</div>Checkout</div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-num">2</div>Confirm & Pay</div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-num">3</div>Done</div>
+  </div>
+
+  <div class="checkout-layout">
+
+    <div>
+      <div class="section-card">
+        <div class="sc-title">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#c0392b" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Delivery Address
+        </div>
+
+        <form [formGroup]="addressForm">
+          <div class="addr-grid">
+            <div class="fg">
+              <label class="lbl">Full Name</label>
+              <input class="inp" formControlName="name" placeholder="John Doe">
+              <span class="form-error" *ngIf="f['name'].touched && f['name'].invalid">Required</span>
+            </div>
+            <div class="fg">
+              <label class="lbl">Mobile Number</label>
+              <input class="inp" formControlName="phone" placeholder="9876543210">
+              <span class="form-error" *ngIf="f['phone'].touched && f['phone'].invalid">Required</span>
+            </div>
+          </div>
+          <div class="fg" style="margin-top: 10px">
+            <label class="lbl">Address Line 1</label>
+            <input class="inp" formControlName="addressLine1" placeholder="Flat no., Building, Street">
+          </div>
+          <div class="fg" style="margin-top: 10px">
+            <label class="lbl">Address Line 2</label>
+            <input class="inp" formControlName="addressLine2" placeholder="Area, Landmark (optional)">
+          </div>
+          <div class="addr-grid" style="margin-top: 10px">
+            <div class="fg">
+              <label class="lbl">City</label>
+              <input class="inp" formControlName="city" placeholder="Mumbai">
+            </div>
+            <div class="fg">
+              <label class="lbl">Pincode</label>
+              <input class="inp" formControlName="pincode" placeholder="400001">
+            </div>
+          </div>
+          <div class="fg" style="margin-top: 10px">
+            <label class="lbl">Address Label</label>
+            <select class="inp" formControlName="label">
+              <option value="Home">Home</option>
+              <option value="Office">Office</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div> -->
+
+    <!-- Order Summary sidebar -->
+    <!-- <div class="summary-card">
+      <div class="sum-title">Order Summary</div>
+      <div class="sum-item" *ngFor="let item of cartItems">
+        <div class="sum-item-img">
+          <img [src]="item.product.imagePath" [alt]="item.product.name" appImageFallback>
+        </div>
+        <div style="flex: 1">
+          <div class="sum-item-name">{{ item.product.name }}</div>
+          <div class="sum-item-qty">Qty: {{ item.quantity }}</div>
+        </div>
+        <div class="sum-item-price">₹{{ item.product.price * item.quantity | number }}</div>
+      </div>
+      <hr class="sum-divider">
+      <div class="sum-row"><span>Subtotal</span><span>₹{{ totalMrp | number }}</span></div>
+      <div class="sum-row saving"><span>Discount</span><span>− ₹{{ totalSaving | number }}</span></div>
+      <div class="sum-row"><span>Delivery</span><span class="free">FREE</span></div>
+      <hr class="sum-divider">
+      <div class="sum-row total"><span>Total</span><span>₹{{ totalPrice | number }}</span></div>
+      <button class="next-btn" (click)="saveAndContinue()" [disabled]="addressForm.invalid">
+        Continue to Confirm →
+      </button>
+    </div>
+
+  </div>
+</div> -->

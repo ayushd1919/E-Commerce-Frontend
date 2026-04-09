@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, numberAttribute, OnInit } from '@angular/core';
 import { CartService } from '../../core/services/cart.service';
 import { map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -21,5 +21,19 @@ export class CartComponent implements OnInit {
     this.cartItems$ = this.cartService.getCart().pipe(
       map((res) => res.itemsWithTotals)
     )
+    this.grandTotal = this.cartService.getCart().pipe(
+      map((res) => res.grandTotal)
+    )
   }
+
+  decrement(id: number){
+    this.cartService.addProduct(id,-1).subscribe()
+  }
+  increment(id: number) {
+    this.cartService.addProduct(id,+1).subscribe()
+  }
+  removeItem(id: number) {
+    this.cartService.removeProduct(id).subscribe()
+  }
+  proceedToCheckout(){}
 }

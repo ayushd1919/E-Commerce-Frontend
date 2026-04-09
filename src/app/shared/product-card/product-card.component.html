@@ -1,1 +1,19 @@
-<p>product-card works!</p>
+<div class="pcard" [routerLink]="['/product', product.id]">
+  <div class="pcard-img">
+    <img [src]="product.displayPhoto" [alt]="product.name" appImageFallback>
+    <span class="pcard-badge" *ngIf="product.subCategory.name">{{ product.subCategory.name }}</span>
+  </div>
+  <div class="pcard-body">
+    <div class="pcard-cat">{{ product.subCategory }}</div>
+    <div class="pcard-name">{{ product.name }}</div>
+    <div class="pcard-price-row">
+      <span class="pcard-price">₹{{ product.price | number }}</span>
+      <span class="pcard-mrp" *ngIf="product.price">₹{{ product.price + 100 | number }}</span>
+      <!-- <span class="pcard-discount" *ngIf="product.discount">{{ product.discount }}% off</span> -->
+    </div>
+  </div>
+  <div class="pcard-footer" (click)="$event.stopPropagation()">
+    <button class="pcard-btn">Wishlist</button>
+    <button class="pcard-btn fill" (click)="addToCart()">Add to Cart</button>
+  </div>
+</div>

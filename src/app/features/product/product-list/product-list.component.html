@@ -1,1 +1,6 @@
-<p>product-list works!</p>
+<p>Product List</p>
+
+<app-product-card
+    *ngFor="let product of product$ | async"    
+    [product]="product"
+></app-product-card>

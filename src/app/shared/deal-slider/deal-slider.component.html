@@ -1,0 +1,51 @@
+<section class="deal-slider">
+  <div class="container">
+    <div class="deal-slider__header text-center">
+      <h1 class="deal-slider__title">Deal Of The Day</h1>
+    </div>
+
+    <div class="deal-slider__shell">
+      <button
+        type="button"
+        class="deal-slider__nav deal-slider__nav--prev"
+        (click)="prev()"
+        [disabled]="currentIndex === 0"
+        aria-label="Previous deals"
+      >
+        &#8592;
+      </button>
+
+      <div class="deal-slider__viewport" #viewport>
+        <div
+          class="deal-slider__track"
+          [style.transform]="getTrackTransform()"
+        >
+          <article
+            class="deal-slider__card card card-hover"
+            #dealCard
+            *ngFor="let item of deals"
+          >
+            <div class="deal-slider__media">
+              <img [src]="item.image" [alt]="item.title" />
+            </div>
+
+            <div class="deal-slider__content">
+              <p class="deal-slider__item-title">{{ item.title }}</p>
+              <p class="deal-slider__offer">{{ item.offer }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="deal-slider__nav deal-slider__nav--next"
+        (click)="next()"
+        [disabled]="currentIndex === maxIndex"
+        aria-label="Next deals"
+      >
+        &#8594;
+      </button>
+    </div>
+  </div>
+</section>

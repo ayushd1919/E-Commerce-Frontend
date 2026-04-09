@@ -30,6 +30,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         this.toastService.show(res.message, 'success')
+        localStorage.setItem('userName', res.user.name)
         setTimeout(() => {
           this.router.navigate(['/'])
         },10)
