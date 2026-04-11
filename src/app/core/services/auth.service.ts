@@ -17,9 +17,9 @@ export class AuthService {
   constructor(private http: HttpClient) {
     const user = localStorage.getItem('user')
 
-    if(user)
+    if (user)
       this.userSubject.next(JSON.parse(user))
-   }
+  }
 
   register(user: Partial<User>) {
     return this.http.post<authRes>(this.apiUrl + "/register", user)
@@ -34,7 +34,10 @@ export class AuthService {
   }
   logout() {
     return this.http.post<{ message: string }>(this.apiUrl + "/logout", {}).pipe(
-      tap((res) => this.userSubject.next(null))
+      tap((res) => { 
+        this.userSubject.next(null) 
+        localStorage.removeItem('user')
+      })
     )
   }
   loggedIn(): Observable<boolean> {
@@ -46,10 +49,10 @@ export class AuthService {
     return this.userSubject.value?.role
   }
   logoutById(sessionId: number) {
-    return this.http.post<{message: string}>(this.apiUrl + `/logout/${sessionId}`,{})
+    return this.http.post<{ message: string }>(this.apiUrl + `/logout/${sessionId}`, {})
   }
   logoutAll() {
-    return this.http.post<{message: string}>(this.apiUrl + '/logoutAll',{})
+    return this.http.post<{ message: string }>(this.apiUrl + '/logoutAll', {})
   }
   getSessions() {
     return this.http.get<SessionRes>(this.apiUrl + '/sessions')

@@ -1,0 +1,33 @@
+<div class="section-card">
+  <div class="sc-head">
+    <div class="sc-title">Personal Information</div>
+    <button class="edit-btn" [class.save]="isEditing" (click)="toggleEdit()">
+      {{ isEditing ? 'Save Changes' : 'Edit' }}
+    </button>
+  </div>
+
+  <form [formGroup]="profileForm">
+    <div class="form-grid">
+      <div class="fg">
+        <label class="lbl">Full Name</label>
+        <input class="inp" formControlName="name" placeholder="John Doe">
+        <!-- <span class="form-error" *ngIf="['name'].touched && ['name'].invalid">Required</span> -->
+      </div>
+      <div class="fg">
+        <label class="lbl">Email Address</label>
+        <input class="inp" formControlName="email" placeholder="you@example.com">
+        <!-- <span class="form-error" *ngIf="['email'].touched && ['email'].invalid">Valid email required</span> -->
+      </div>
+    </div>
+    <div class="form-grid" style="margin-top: 10px">
+      <div class="fg">
+        <label class="lbl">Mobile Number</label>
+        <input class="inp" formControlName="mobile" placeholder="9876543210">
+      </div>
+      <div class="fg">
+        <label class="lbl">Member Since</label>
+        <!-- <input class="inp" [value]="user?.createdAt | date:'MMMM yyyy'" disabled> -->
+      </div>
+    </div>
+  </form>
+</div>

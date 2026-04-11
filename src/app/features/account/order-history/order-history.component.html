@@ -1,6 +1,60 @@
-<div *ngIf="(order$ | async) as orders">
-    <div *ngFor="let order of orders">
-        <p>Order ID: {{order.id}}</p>
-        <p>Amount: {{order.totalAmount}}</p>
+<ng-container *ngIf="order$ | async as orders">
+    <div class="page">
+        <div class="page-head">
+            <h1 class="page-title">My Orders</h1>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-orders" *ngIf="orders.length === 0">
+            <svg class="empty-icon" viewBox="0 0 24 24">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+            <div class="empty-title">No orders yet</div>
+            <p class="empty-sub">Your placed orders will appear here.</p>
+            <button class="shop-btn" routerLink="/">Start Shopping</button>
+        </div>
+
+        <!-- Order cards -->
+        <div class="order-card" *ngFor="let order of orders">
+            <div class="order-head">
+                <div>
+                    <div class="order-id">#ORD-{{ order.id }}</div>
+                    <div class="order-date">
+                        {{ order.createdAt | date:'d MMM yyyy' }} · {{ order.orderItems.length }} items
+                    </div>
+                </div>
+                <div class="order-meta">
+                    <span class="status-badge" [ngClass]="statusClass(order.status)">
+                        {{ order.status | titlecase }}
+                    </span>
+                    <button class="view-btn" [routerLink]="['/account/profile/my-orders/', order.id]">
+                        View Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="oi-thumb" *ngFor="let item of order.orderItems | slice:0:4">
+                    <img [src]="item.product.displayPhoto" [alt]="item.product.name" appImageFallback>
+                </div>
+                <div class="oi-more" *ngIf="order.orderItems.length > 4">
+                    +{{ order.orderItems.length - 4 }}
+                </div>
+            </div>
+
+            <div class="order-foot">
+                <div class="of-items">
+                    {{ order.orderItems.length }} product{{ order.orderItems.length > 1 ? 's' : '' }} ·
+                    Delivered to {{ order.shippingName }}
+                </div>
+                <div style="text-align: right">
+                    <div class="of-total">₹{{ order.totalAmount | number }}</div>
+                    <div class="of-pm">{{ order.paymentMethod | titlecase }}</div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+</ng-container>

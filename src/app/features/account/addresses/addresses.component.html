@@ -1,0 +1,63 @@
+<ng-container *ngIf="addresses$ | async as addresses">
+<div class="section-card">
+  <div class="sc-head">
+    <div class="sc-title">Saved Addresses</div>
+  </div>
+
+  <div class="addr-card" *ngFor="let addr of addresses">
+    <div>
+      <div class="addr-name">{{ addr.name | titlecase}}</div>
+      <div class="addr-line">
+        {{ addr.addressLine1 | titlecase}}, {{ addr.addressLine2 | titlecase}},
+        {{ addr.city | titlecase}} - {{ addr.pincode }}
+      </div>
+    </div>
+    <div class="addr-actions">
+      <button class="icon-btn" (click)="editAddress(addr)">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </button>
+      <button class="icon-btn del" (click)="deleteAddress(addr.id)">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+          <path d="M10 11v6M14 11v6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="empty-addr" *ngIf="addresses.length === 0">
+    No saved addresses yet.
+  </div>
+
+  <button class="add-addr" (click)="showForm = !showForm">
+    + Add New Address
+  </button>
+
+  <!-- Inline add form -->
+  <div class="addr-form" *ngIf="showForm">
+    <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0">
+    <form [formGroup]="addrForm" (ngSubmit)="saveAddress()">
+      <div class="form-grid">
+        <div class="fg"><label class="lbl">Name</label><input class="inp" formControlName="name" placeholder="Home / Office"></div>
+      </div>
+      <div class="fg" style="margin-top: 10px"><label class="lbl">Address Line 1</label><input class="inp" formControlName="addressLine1" placeholder="Flat no., Building, Street"></div>
+      <div class="fg" style="margin-top: 10px"><label class="lbl">Address Line 2</label><input class="inp" formControlName="addressLine2" placeholder="Area, Landmark"></div>
+      <div class="form-grid" style="margin-top: 10px">
+        <div class="fg"><label class="lbl">City</label><input class="inp" formControlName="city" placeholder="Mumbai"></div>
+        <div class="fg"><label class="lbl">Pincode</label><input class="inp" formControlName="pincode" placeholder="400001"></div>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 14px">
+        <button type="submit" class="edit-btn save">{{editingAddressId ? 'Update' : 'Save'}} Address</button>
+        <!-- [disabled]="addrForm.invalid" -->
+        <button type="button" class="edit-btn" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+</ng-container>
+

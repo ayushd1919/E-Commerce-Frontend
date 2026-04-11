@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addProductCartRes, Cart, CartItem, CartRes } from '../models/cart.model';
+import { CartRes } from '../models/cart.model';
 import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({

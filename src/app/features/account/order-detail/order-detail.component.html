@@ -1,1 +1,117 @@
-<p>order-detail works!</p>
+<ng-container *ngIf="order$ | async as order">
+
+    <div class="page">
+        <div class="page-head">
+            <button class="back-btn" routerLink="/account/profile/my-orders">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#c0392b" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+                Back to Orders
+            </button>
+            <span class="status-badge" [ngClass]="statusClass(order?.status)">
+                {{ order?.status | titlecase }}
+            </span>
+        </div>
+
+        <div class="detail-layout" *ngIf="order">
+
+            <!-- Items -->
+            <div class="dcard">
+                <div class="dcard-title">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#c0392b" stroke-width="2">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    Order Items
+                </div>
+
+                <div class="detail-item" *ngFor="let item of order.orderItems">
+                    <div class="di-img">
+                        <img [src]="item.product.displayPhoto" [alt]="item.product.name" appImageFallback>
+                    </div>
+                    <div class="di-body">
+                        <!-- {{ item.product.type }} -->
+                        <div class="di-cat"> · {{ item.product.subCategory }}</div>
+                        <div class="di-name">{{ item.product.name }}</div>
+                        <div class="di-qty">Qty: {{ item.quantity }}</div>
+                    </div>
+                    <div>
+                        <div class="di-price">₹{{ item.priceAtPurchased * item.quantity | number }}</div>
+                        <div class="di-snapshot">₹{{ item.priceAtPurchased | number }} each</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Info -->
+            <div class="dcard">
+                <div class="dcard-title">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#c0392b" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    Order Info
+                </div>
+                <div class="meta-grid">
+                    <div class="meta-row">
+                        <span class="meta-lbl">Order ID</span>
+                        <span class="meta-val">#ORD-{{ order.id }}</span>
+                    </div>
+                    <div class="meta-row">
+                        <span class="meta-lbl">Date Placed</span>
+                        <span class="meta-val">{{ order.createdAt | date:'d MMM yyyy, h:mm a' }}</span>
+                    </div>
+                    <div class="meta-row">
+                        <span class="meta-lbl">Payment Method</span>
+                        <span class="meta-val">{{ order.paymentMethod | titlecase }}</span>
+                    </div>
+                    <div class="meta-row">
+                        <span class="meta-lbl">Status</span>
+                        <span class="meta-val" [ngClass]="statusTextClass(order.status)">
+                            {{ order.status | titlecase }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Address -->
+            <div class="dcard">
+                <div class="dcard-title">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#c0392b" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    Delivery Address
+                </div>
+                <div class="addr-name">{{ order.shippingName }}</div>
+                <div class="addr-line">{{ order.shippingAddress }}</div>
+            </div>
+
+            <!-- Payment Summary -->
+            <div class="dcard">
+                <div class="dcard-title">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#c0392b" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    Payment Summary
+                </div>
+                <div class="summary-rows">
+                    <div class="srow">
+                        <span>Subtotal ({{ totalQty }} items)</span>
+                        <span>₹{{ order.totalAmount| number }}</span>
+                    </div>
+                    <div class="srow">
+                        <span>Delivery</span>
+                        <span class="free">FREE</span>
+                    </div>
+                    <div class="srow total-row">
+                        <span>Total Paid</span>
+                        <span>₹{{ order.totalAmount | number }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

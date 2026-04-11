@@ -161,7 +161,7 @@
 }
 
 .cat-item:hover,
-.cat-item.active::after{
+.cat-item.active{
   color: var(--color-primary);
   border-bottom-color: var(--color-primary);
 }

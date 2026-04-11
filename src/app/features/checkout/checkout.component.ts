@@ -10,7 +10,6 @@ import { User } from '../../core/models/user.model';
 import { Router, RouterLink } from "@angular/router";
 import { OrderService } from '../../core/services/order.service';
 import { ToastService } from '../../core/services/toast.service';
-import { Order } from '../../core/models/order.model';
 
 @Component({
   selector: 'app-checkout',

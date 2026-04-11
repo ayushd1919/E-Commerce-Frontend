@@ -25,10 +25,9 @@ export class NavbarComponent implements OnInit{
   ){
     this.currentUser$ = authService.user$
     this.type$ = this.taxanomyService.getType().pipe(map(res => res.type))
-    
   }
   ngOnInit(): void {
-    
+    this.currentUser$.subscribe()
   }
 
   onSearch(){}

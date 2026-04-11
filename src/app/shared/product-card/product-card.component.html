@@ -13,7 +13,6 @@
     </div>
   </div>
   <div class="pcard-footer" (click)="$event.stopPropagation()">
-    <button class="pcard-btn">Wishlist</button>
-    <button class="pcard-btn fill" (click)="addToCart()">Add to Cart</button>
+    <button class="pcard-btn fill" (click)="addToCart(product.id)">Add to Cart</button>
   </div>
 </div>
