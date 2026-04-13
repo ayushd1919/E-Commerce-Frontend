@@ -1,1 +1,45 @@
-<p>admin-order-list works!</p>
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Orders</h1>
+    <!-- <div class="page-sub">{{ totalCount }} total orders</div> -->
+  </div>
+</div>
+
+<div class="tbl-card">
+  <div class="tbl-head">
+    <div class="tbl-title">All Orders</div>
+    <!-- <input class="search-inp" placeholder="Search by order ID or customer..."
+      [(ngModel)]="searchQuery" (input)="onSearch()"> -->
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th><th>Customer</th><th>Items</th>
+        <th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders$ | async">
+        <td class="order-id">#{{ order.id }}</td>
+        <td>{{ order.name }}</td>
+        <td>{{ order.orderItems?.length || 1}}</td>
+        <td>₹{{ order.totalAmount | number }}</td>
+        <td>{{ order.paymentMethod | titlecase }}</td>
+        <td>
+          <span class="badge" [ngClass]="statusClass(order.status)">
+            {{ order.status | titlecase }}
+          </span>
+        </td>
+        <td>{{ order.createdAt | date:'d MMM yyyy' }}</td>
+        <td>
+          <button class="act-btn" [routerLink]="['/admin/orders/', order.id]" title="View">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

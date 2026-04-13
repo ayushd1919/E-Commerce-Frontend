@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, numberAttribute } from '@angular/core';
-import { TypeRes } from '../models/type.model';
-import { CategoryRes } from '../models/category.model';
-import { SubCategoryRes } from '../models/subCategory.model';
+import { createTypeRes, TypeRes } from '../models/type.model';
+import { CategoryRes, CreateCategoryRes } from '../models/category.model';
+import { CreateSubCategoryRes, SubCategoryRes } from '../models/subCategory.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,22 +29,24 @@ export class TaxanomyService {
     }
     return this.http.get<SubCategoryRes>(this.apiUrl + '/subCategory', { params })
   }
+
+  //Admin Services
   createType(name: string) {
-    return this.http.post<TypeRes>(this.apiUrl + '/type/create', { name })
+    return this.http.post<createTypeRes>(this.apiUrl + '/type/create', { name })
   }
   updateType(name: string, id: number) {
-    return this.http.patch<TypeRes>(this.apiUrl + `/type/${id}`, { name })
+    return this.http.patch<createTypeRes>(this.apiUrl + `/type/${id}`, { name })
   }
   creteCategory(name: string, typeId: number) {
-    return this.http.post<CategoryRes>(this.apiUrl + '/category/create', { name, typeId })
+    return this.http.post<CreateCategoryRes>(this.apiUrl + '/category/create', { name, typeId })
   }
   updateCategory(name: string, typeId: number, id: number) {
-    return this.http.patch<CategoryRes>(this.apiUrl + `/category/${id}`, { name, typeId })
+    return this.http.patch<CreateCategoryRes>(this.apiUrl + `/category/${id}`, { name, typeId })
   }
   creteSubCategory(name: string, categoryId: number) {
-    return this.http.post<SubCategoryRes>(this.apiUrl + '/subCategory/create', { name, categoryId })
+    return this.http.post<CreateSubCategoryRes>(this.apiUrl + '/subCategory/create', { name, categoryId })
   }
-  updateSubCategory(name: string, typeId: number, id: number) {
-    return this.http.patch<SubCategoryRes>(this.apiUrl + `/subCategory/${id}`, { name, typeId })
+  updateSubCategory(name: string, categoryId: number, id: number) {
+    return this.http.patch<CreateSubCategoryRes>(this.apiUrl + `/subCategory/${id}`, { name, categoryId })
   }
 }

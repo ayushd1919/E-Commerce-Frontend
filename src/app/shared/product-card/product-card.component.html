@@ -1,18 +1,60 @@
-<div class="pcard" [routerLink]="['/product', product.id]">
+
+<div class="pcard" [class.pcard--admin]="isAdmin" [routerLink]="['/product/detail/', product.id]">
+
   <div class="pcard-img">
     <img [src]="product.displayPhoto" [alt]="product.name" appImageFallback>
     <span class="pcard-badge" *ngIf="product.subCategory.name">{{ product.subCategory.name }}</span>
+
+    <!-- Admin: stock pill overlay -->
+    <span *ngIf="isAdmin" class="pcard-stock-pill"
+      [class.pill-in]="product.stock > 5"
+      [class.pill-low]="product.stock > 0 && product.stock <= 5"
+      [class.pill-out]="product.stock === 0">
+      {{ product.stock === 0 ? 'Out of Stock' : product.stock <= 5 ? 'Low · ' + product.stock : 'Stock · ' + product.stock }}
+    </span>
   </div>
+
   <div class="pcard-body">
-    <div class="pcard-cat">{{ product.subCategory }}</div>
+    <div class="pcard-cat">{{ product.subCategory.category.name }}</div>
     <div class="pcard-name">{{ product.name }}</div>
+
     <div class="pcard-price-row">
       <span class="pcard-price">₹{{ product.price | number }}</span>
-      <span class="pcard-mrp" *ngIf="product.price">₹{{ product.price + 100 | number }}</span>
-      <!-- <span class="pcard-discount" *ngIf="product.discount">{{ product.discount }}% off</span> -->
+      <span class="pcard-mrp">₹{{ product.price + 100 | number }}</span>
+      <span class="pcard-discount">10% off</span>
+    </div>
+
+    <!-- Admin: subcategory meta row -->
+    <div *ngIf="isAdmin" class="pcard-meta">
+      <span class="meta-tag">{{ product.subCategory.category.type.name }}</span>
+      <span class="meta-tag">{{ product.subCategory.category.name }}</span>
     </div>
   </div>
-  <div class="pcard-footer" (click)="$event.stopPropagation()">
-    <button class="pcard-btn fill" (click)="addToCart(product.id)">Add to Cart</button>
+
+  <div class="pcard-footer">
+
+    <!-- Customer -->
+    <ng-container *ngIf="!isAdmin">
+      <button class="pcard-btn fill"
+        (click)="$event.stopPropagation()"
+        (click)="addToCart(product.id)">
+        Add to Cart
+      </button>
+      <button class="pcard-btn">View</button>
+    </ng-container>
+
+    <!-- Admin -->
+    <ng-container *ngIf="isAdmin">
+      <button class="pcard-btn fill admin-view-btn"
+        (click)="$event.stopPropagation()"
+        [routerLink]="['/product/detail/', product.id]">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        View Product
+      </button>
+    </ng-container>
+
   </div>
 </div>

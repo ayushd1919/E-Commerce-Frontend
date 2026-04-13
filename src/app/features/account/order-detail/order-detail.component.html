@@ -84,8 +84,8 @@
                     </svg>
                     Delivery Address
                 </div>
-                <div class="addr-name">{{ order.shippingName }}</div>
-                <div class="addr-line">{{ order.shippingAddress }}</div>
+                <div class="addr-name">{{ order.shippingName | titlecase}}</div>
+                <div class="addr-line">{{ order.shippingAddress | titlecase}}</div>
             </div>
 
             <!-- Payment Summary -->

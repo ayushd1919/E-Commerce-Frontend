@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { authRes, SessionRes, User } from '../models/user.model';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
   user$ = this.userSubject.asObservable()
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     const user = localStorage.getItem('user')
 
     if (user)
@@ -29,6 +30,14 @@ export class AuthService {
       tap((res) => {
         this.userSubject.next(res.user)
         localStorage.setItem('user', JSON.stringify(res.user))
+        const role = res.user.role
+        console.log(role)
+        if(role === 'ADMIN'){
+          console.log('enter')
+          this.router.navigate(['/admin'])
+        }
+        else
+          this.router.navigate(['/'])
       })
     )
   }

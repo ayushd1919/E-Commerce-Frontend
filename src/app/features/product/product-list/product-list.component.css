@@ -1,0 +1,122 @@
+.pl-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-xl);
+  align-items: start;
+}
+
+.pl-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.pl-main {
+  min-height: 400px;
+}
+
+/* Grid */
+.pl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+/* Loading */
+.pl-loading {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.pl-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Empty state */
+.pl-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: var(--color-text-muted);
+}
+
+.pl-empty p {
+  font-size: var(--font-sm);
+  color: var(--color-text-muted);
+}
+
+/* Pagination */
+.pl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.pg-btn {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--font-sm);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.pg-btn:hover:not(:disabled):not(.active) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.pg-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.pg-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pg-ellipsis {
+  color: var(--color-text-muted);
+  font-size: var(--font-sm);
+  padding: 0 2px;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .pl-layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-md);
+  }
+
+  .pl-sidebar {
+    position: static;
+  }
+}

@@ -9,14 +9,32 @@ import { PRODUCT_ROUTES } from './features/product/products.routes';
 import { authGuard } from './core/guards/auth.guard';
 import { adminGuard } from './core/guards/admin.guard';
 import { adminLoadGuard } from './core/guards/admin-load.guard';
+import { MainLayoutComponent } from './features/layouts/main-layout/main-layout.component';
+import { AuthLayoutComponent } from './features/layouts/auth-layout/auth-layout.component';
 
 export const routes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: 'home'},
-    { path: 'home', component: HomeComponent },
-    { path: 'auth', children: AUTH_ROUTES},
-    { path: 'account', children: ACCOUNT_ROUTES, canActivate: [authGuard] },
-    { path: 'cart', component: CartComponent, canActivate: [authGuard] },
-    { path: 'checkout', children: CHECKOUT_ROUTES, canActivate: [authGuard] },
-    { path: 'product', children: PRODUCT_ROUTES, canActivate: [authGuard] },
-    { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES), canActivate: [adminGuard], canMatch: [adminLoadGuard] }
+    {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: 'home', component: HomeComponent },
+      { path: 'cart', component: CartComponent, canActivate: [authGuard] },
+      { path: 'product', children: PRODUCT_ROUTES },
+      { path: 'account', children: ACCOUNT_ROUTES, canActivate: [authGuard] },
+      { path: 'checkout', children: CHECKOUT_ROUTES, canActivate: [authGuard] }
+    ]
+  },
+  {
+    path: 'auth',
+    component: AuthLayoutComponent,
+    children: AUTH_ROUTES
+  },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    canMatch: [adminLoadGuard],
+    loadChildren: () =>
+      import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)
+  }
 ];

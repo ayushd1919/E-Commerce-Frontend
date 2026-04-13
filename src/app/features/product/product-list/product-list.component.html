@@ -1,6 +1,58 @@
-<p>Product List</p>
+<div class="pl-layout">
 
-<app-product-card
-    *ngFor="let product of product$ | async"    
-    [product]="product"
-></app-product-card>
+  <aside class="pl-sidebar">
+    <app-filter-panel></app-filter-panel>
+  </aside>
+
+  <main class="pl-main">
+
+    <div class="pl-loading" *ngIf="isLoading">
+      <div class="pl-spinner"></div>
+    </div>
+
+    <ng-container *ngIf="!isLoading">
+
+      <div class="pl-empty" *ngIf="products.length === 0">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="var(--color-border)" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <p>No products found</p>
+      </div>
+
+      <div class="pl-grid" *ngIf="products.length > 0">
+        <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pl-pagination" *ngIf="totalPages > 1">
+        <button class="pg-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+
+        <button class="pg-btn first-last" *ngIf="pageNumbers[0] > 1" (click)="goToPage(1)">1</button>
+        <span class="pg-ellipsis" *ngIf="pageNumbers[0] > 2">…</span>
+
+        <button
+          class="pg-btn"
+          *ngFor="let p of pageNumbers"
+          [class.active]="p === currentPage"
+          (click)="goToPage(p)">
+          {{ p }}
+        </button>
+
+        <span class="pg-ellipsis" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages - 1">…</span>
+        <button class="pg-btn first-last" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages" (click)="goToPage(totalPages)">{{ totalPages }}</button>
+
+        <button class="pg-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+
+    </ng-container>
+  </main>
+
+</div>

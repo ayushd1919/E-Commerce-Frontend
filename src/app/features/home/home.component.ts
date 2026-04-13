@@ -6,10 +6,11 @@ import { map, Observable } from 'rxjs';
 import { Product } from '../../core/models/product.model';
 import { ProductService } from '../../core/services/product.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroSliderComponent, DealSliderComponent, ProductCardComponent, CommonModule],
+  imports: [HeroSliderComponent, DealSliderComponent, ProductCardComponent, CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

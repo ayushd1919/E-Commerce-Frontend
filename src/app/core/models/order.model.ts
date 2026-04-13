@@ -1,4 +1,5 @@
 import { Product } from "./product.model"
+import { User } from "./user.model";
 
 export enum OrderStatus {
     PENDING = 'PENDING',
@@ -12,13 +13,16 @@ export enum PaymentMethod {
     UPI = 'UPI'
 }
 export interface Order {
-    id: number
-    totalAmount: number
-    createdAt: Date
-    paymentMethod: PaymentMethod
-    shippingName: string
-    shippingAddress: string
-    status: OrderStatus
+    id: number;
+    user: User;
+    name: string;
+    mobile: string;
+    totalAmount: number;
+    createdAt: Date;
+    paymentMethod: PaymentMethod;
+    shippingName: string;
+    shippingAddress: string;
+    status: OrderStatus;
     orderItems: OrderItem[]
 }
 export interface OrderItem {

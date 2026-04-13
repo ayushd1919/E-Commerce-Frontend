@@ -30,9 +30,8 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         this.toastService.show(res.message, 'success')
-        setTimeout(() => {
-          this.router.navigate(['/'])
-        },10)
+        localStorage.setItem('user', JSON.stringify(res.user))
+        localStorage.setItem('role', res.user.role)
       }
     })
   }

@@ -7,5 +7,9 @@ export interface Type {
 }
 export interface TypeRes {
     message: string, 
-    type: Type[]
+    types: Type[]
+}
+export interface createTypeRes {
+    message: string,
+    type: Type
 }

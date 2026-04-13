@@ -27,7 +27,7 @@ export class HeroSliderComponent implements OnInit, OnDestroy {
       subtitle: 'Breezy Summer Fits',
       offer: 'MIN. 60% OFF',
       buttonText: 'SHOP NOW',
-      image: 'assets/slider/slide-1.png',
+      image: '../../../assets/slider/slide-1.png',
       leftBg: 'linear-gradient(180deg, #f4a6cf 0%, #f97d30 100%)',
       rightBg: 'linear-gradient(180deg, #f7d7e5 0%, #f1b95b 100%)'
     },
@@ -37,7 +37,7 @@ export class HeroSliderComponent implements OnInit, OnDestroy {
       subtitle: 'New Season Ethnic Wear',
       offer: 'UP TO 50% OFF',
       buttonText: 'EXPLORE',
-      image: 'assets/slider/slide-2.png',
+      image: '../../../assets/slider/slide-2.png',
       leftBg: 'linear-gradient(180deg, #f5b2c9 0%, #f27749 100%)',
       rightBg: 'linear-gradient(180deg, #f8d9e6 0%, #f0b86b 100%)'
     },
@@ -47,7 +47,7 @@ export class HeroSliderComponent implements OnInit, OnDestroy {
       subtitle: 'Everyday Fashion Refresh',
       offer: 'STARTING ₹499',
       buttonText: 'BUY NOW',
-      image: 'assets/slider/slide-3.png',
+      image: '../../../assets/slider/slide-3.png',
       leftBg: 'linear-gradient(180deg, #ef9dc8 0%, #ef6b38 100%)',
       rightBg: 'linear-gradient(180deg, #f6d4e1 0%, #efb04f 100%)'
     }

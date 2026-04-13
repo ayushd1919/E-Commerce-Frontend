@@ -1,0 +1,83 @@
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Dashboard</h1>
+    <div class="page-sub">Welcome back, Admin</div>
+  </div>
+</div>
+
+<div class="stats-row" *ngIf="stats">
+
+  <div class="stat-card">
+    <div class="stat-icon icon-blue">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </div>
+    <div class="stat-lbl">Total Customers</div>
+    <div class="stat-val">{{ stats.totalCustomers }}</div>
+    <div class="stat-sub stat-danger" *ngIf="stats.lockedCustomers > 0">
+      {{ stats.lockedCustomers }} locked
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-green">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+    </div>
+    <div class="stat-lbl">Total Orders</div>
+    <div class="stat-val">{{ stats.totalOrders }}</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-red">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <path d="M8 21h8M12 17v4"/>
+      </svg>
+    </div>
+    <div class="stat-lbl">Total Products</div>
+    <div class="stat-val">{{ stats.totalProducts }}</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon icon-yellow">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="1" x2="12" y2="23"/>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+    </div>
+    <div class="stat-lbl">Total Revenue</div>
+    <div class="stat-val grn">₹{{ stats.totalRevenue | number }}</div>
+  </div>
+
+</div>
+
+<div class="tbl-card">
+  <div class="tbl-head">
+    <div class="tbl-title">Recent Orders</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th><th>Customer</th><th>Total</th>
+        <th>Payment</th><th>Status</th><th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders$ | async">
+        <td class="order-id">#{{ order.id }}</td>
+        <td>{{ order.name }}</td>
+        <td>₹{{ order.totalAmount | number }}</td>
+        <td>{{ order.paymentMethod | titlecase }}</td>
+        <td><span class="badge" [ngClass]="statusClass(order.status)">{{ order.status | titlecase }}</span></td>
+        <td>{{ order.createdAt | date:'d MMM yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
