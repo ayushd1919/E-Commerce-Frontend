@@ -26,7 +26,6 @@ export class DealSliderComponent implements AfterViewInit {
   deals: DealItem[] = [
     { image: 'assets/deals/sunglasses.jpg', title: 'Trendy Sunglasses', offer: 'UNDER ₹299' },
     { image: 'assets/deals/salwar.jpg', title: 'Salwar Suits', offer: 'MIN. 60% OFF' },
-    { image: 'assets/deals/bottomwear.jpg', title: "Women's Bottomwear", offer: 'MIN. 70% OFF' },
     { image: 'assets/deals/shirts.jpg', title: "Men's Shirts", offer: 'MIN. 70% OFF' },
     { image: 'assets/deals/footwear.jpg', title: "Men's Footwear", offer: 'MIN. 50% OFF' },
     { image: 'assets/deals/girls.jpg', title: "Girls' Clothing", offer: 'MIN. 60% OFF' },

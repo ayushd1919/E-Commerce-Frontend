@@ -2,7 +2,8 @@
 <div class="pcard" [class.pcard--admin]="isAdmin" [routerLink]="['/product/detail/', product.id]">
 
   <div class="pcard-img">
-    <img [src]="product.displayPhoto" [alt]="product.name" appImageFallback>
+    <img [src]="product.displayPhoto" [alt]="product.name" appImageFallback
+     [productType]="product.subCategory.category.type.name">
     <span class="pcard-badge" *ngIf="product.subCategory.name">{{ product.subCategory.name }}</span>
 
     <!-- Admin: stock pill overlay -->
